@@ -10,13 +10,13 @@
           <a href="">
           <img src="../../assets/img/hypex-logo.png" alt="" class="profile">
         </a>
-        <a href="#" class="profile">Guardian Name</a>
+        <a href="#" class="profile">Office Name</a>
         </div>
         <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Senior Citizen 1</span>
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>View Analytics</span>
         </a>
         <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-chart-area fa-fw me-1"></i><span>Add Senior Citizen</span>
+          <i class="fas fa-chart-area fa-fw me-1"></i><span>Senior Citizen List</span>
         </a>
         <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false"><i
             class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a>
@@ -100,7 +100,7 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Name of Account
+            Office Account
           </a>
           <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><span class="dropdown-item-text">Profile </span></li>
@@ -141,61 +141,14 @@
 <!--Main Navigation-->
 <main class="vh-100">
   <div class="container pt-4">
-    <h1 >Senior Citizen Name</h1>
-    <p>Senior Citizen Booklet</p> 
+    <h1 >Senior Citizen List</h1>
+    <h2>User Settings</h2>
     <hr>
   </div>
 
 
   <section class="gradient-custom">
-    <table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr class="column-title">
-      <th>Reference ID</th>
-      <th>Name of Product</th>
-      <th>Number of Units</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>001</td>
-    <td>Book</td>
-    <td>5</td>
-    <td>2022-03-28</td>
-  </tr>
-  <tr>
-    <td>002</td>
-    <td>Pen</td>
-    <td>10</td>
-    <td>2022-03-29</td>
-  </tr>
-  <tr>
-    <td>003</td>
-    <td>Notebook</td>
-    <td>3</td>
-    <td>2022-03-30</td>
-  </tr>
-  </tbody>
-<!--  
-     <tbody>
-    <?php
-      // Retrieve data from database
-      $data = // your code to retrieve data from database
 
-      // Loop through data and generate table rows and cells
-      foreach ($data as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['Reference ID'] . "</td>";
-        echo "<td>" . $row['Name of Product'] . "</td>";
-        echo "<td>" . $row['Number of Units'] . "</td>";
-        echo "<td>" . $row['Data'] . "</td>";
-        echo "</tr>";
-      }
-    ?>
-  </tbody>
--->
-</table>
 </section>
 
 
@@ -230,7 +183,7 @@ section {
   padding-right: 1.5rem;
 }
 .bg {
-  background-color: #6B8E23 !important;
+  background-color: #89CFF1 !important;
 }
 .navbar a {
   color: black;
@@ -241,16 +194,11 @@ section {
 #sidebarMenu {
   text-align: left;
 }
-table {
-  border: 15px solid #6B8E23;
-  border-spacing: 0;
-  border-radius: 10px;
-  border-collapse: separate;
-}
 .profile img{
   height: 8rem;
   border: 2px solid black;
   border-radius: 50%;
+  background-color: #89CFF1;
 }
 .profile {
   display: flex;

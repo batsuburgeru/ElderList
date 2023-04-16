@@ -1,34 +1,54 @@
 <template>
-    
     <!--Main Navigation-->
-<header>
-  <!-- Sidebar -->
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <div class="profile">
-          <a href="">
-          <img src="../../assets/img/hypex-logo.png" alt="" class="profile">
-        </a>
-        <a href="#" class="profile">Guardian Name</a>
+    <header>
+      <!-- Sidebar -->
+      <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+          <div class="list-group list-group-flush mx-3 mt-4">
+            <div class="profile">
+              <a href="">
+                <img src="../../assets/img/hypex-logo.png" alt="" class="profile" />
+              </a>
+              <a href="#" class="profile">Office Name</a>
+            </div>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-3 ripple"
+              :class="{ active: activeButton === 'viewAnalytics' }"
+              @click="activeButton = 'viewAnalytics'"
+            >
+              <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>View Analytics</span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-3 ripple"
+              :class="{ active: activeButton === 'seniorCitizenList' }"
+              @click="activeButton = 'seniorCitizenList'"
+            >
+              <i class="fas fa-chart-area fa-fw me-1"></i><span>Senior Citizen List</span>
+            </a>
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-3 ripple"
+              :class="{ active: activeButton === 'settings' }"
+              @click="activeButton = 'settings'"
+            >
+              <i class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a
+            >
+            <a
+              href="#"
+              class="list-group-item list-group-item-action py-3 ripple"
+              :class="{ active: activeButton === 'help' }"
+              @click="activeButton = 'help'"
+            >
+              <i class="fas fa-chart-line fa-fw me-3"></i><span>Help</span>
+            </a>
+          </div>
         </div>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Senior Citizen 1</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-chart-area fa-fw me-1"></i><span>Add Senior Citizen</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false"><i
-            class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false"><i
-            class="fas fa-chart-line fa-fw me-3"></i><span>Help</span></a>
-      </div>
-    </div>
-  </nav>
-  <!-- Sidebar -->
+      </nav>
+      <!-- Sidebar -->
 
-  <!-- Navbar -->
-  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg fixed-top">
+      <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg fixed-top">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
@@ -100,7 +120,7 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Name of Account
+            Office Account
           </a>
           <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><span class="dropdown-item-text">Profile </span></li>
@@ -137,82 +157,35 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
-</header>
-<!--Main Navigation-->
-<main class="vh-100">
-  <div class="container pt-4">
-    <h1 >Senior Citizen Name</h1>
-    <p>Senior Citizen Booklet</p> 
-    <hr>
-  </div>
-
-
-  <section class="gradient-custom">
-    <table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr class="column-title">
-      <th>Reference ID</th>
-      <th>Name of Product</th>
-      <th>Number of Units</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>001</td>
-    <td>Book</td>
-    <td>5</td>
-    <td>2022-03-28</td>
-  </tr>
-  <tr>
-    <td>002</td>
-    <td>Pen</td>
-    <td>10</td>
-    <td>2022-03-29</td>
-  </tr>
-  <tr>
-    <td>003</td>
-    <td>Notebook</td>
-    <td>3</td>
-    <td>2022-03-30</td>
-  </tr>
-  </tbody>
-<!--  
-     <tbody>
-    <?php
-      // Retrieve data from database
-      $data = // your code to retrieve data from database
-
-      // Loop through data and generate table rows and cells
-      foreach ($data as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['Reference ID'] . "</td>";
-        echo "<td>" . $row['Name of Product'] . "</td>";
-        echo "<td>" . $row['Number of Units'] . "</td>";
-        echo "<td>" . $row['Data'] . "</td>";
-        echo "</tr>";
-      }
-    ?>
-  </tbody>
--->
-</table>
-</section>
-
-
-</main>
-
-</template>
+  
+      <!-- Main content -->
+      <main class = "vh-100">
+        <div v-if="activeButton === 'viewAnalytics'">View Analytics content goes here</div>
+        <div v-if="activeButton === 'seniorCitizenList'"><SeniorCitizenList /></div>
+        <div v-if="activeButton === 'settings'">Settings content goes here</div>
+        <div v-if="activeButton === 'help'">Help content goes here</div>
+      </main>
+      <!-- Main content -->
+    </header>
+  </template>
+  
+  <script>
+  import SeniorCitizenList from './SeniorCitizenList.vue';
+  
+  export default {
+    name: 'MainNavigation',
+    components: {
+      SeniorCitizenList,
+    },
+    data() {
+      return {
+        activeButton: 'seniorCitizenList',
+      };
+    },
+  };
+  </script>
 
 <style scoped>
-main {
-    padding-top: 7vh;
-}
-body {
-background-color: #fbfbfb;
-}
-section {
-    height: calc(100vh-7vh);
-}
 .navbar {
   height: 7vh;
 }
@@ -230,7 +203,7 @@ section {
   padding-right: 1.5rem;
 }
 .bg {
-  background-color: #6B8E23 !important;
+  background-color: #89CFF1 !important;
 }
 .navbar a {
   color: black;
@@ -241,16 +214,11 @@ section {
 #sidebarMenu {
   text-align: left;
 }
-table {
-  border: 15px solid #6B8E23;
-  border-spacing: 0;
-  border-radius: 10px;
-  border-collapse: separate;
-}
 .profile img{
   height: 8rem;
   border: 2px solid black;
   border-radius: 50%;
+  background-color: #89CFF1;
 }
 .profile {
   display: flex;
@@ -264,17 +232,6 @@ table {
   font-weight: bolder;
   color: black;
 }
-.container {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  font-size: larger;
-}
-hr {
-  border: 2px solid black;
-  width: 160%;
-}
 .dropdown {
   display: flex;
   align-items: center;
@@ -286,17 +243,6 @@ hr {
   background-color: white;
 }
 
-
-
-
-
-@media (min-width: 991.98px) {
-main {
-padding-left: 245px;
-padding-right: 5px;
-}
-}
-/* Sidebar */
 .sidebar {
 position: fixed;
 top: 0;
@@ -308,11 +254,6 @@ width: 240px;
 z-index: 600;
 }
 
-@media (max-width: 991.98px) {
-.sidebar {
-width: 100%;
-}
-}
 .sidebar .active {
 border-radius: 5px;
 box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
