@@ -56,7 +56,7 @@
 </section>
 </template>
 
-<style>
+<style scoped>
 main {
     padding-top: 7vh;
     padding-left: 240px;

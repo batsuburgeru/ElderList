@@ -1,277 +1,271 @@
 <template>
-    
-    <!--Main Navigation-->
-<header>
-  <!-- Sidebar -->
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <div class="profile">
-          <a href="">
-          <img src="../../assets/img/hypex-logo.png" alt="" class="profile">
-        </a>
-        <a href="#" class="profile">Office Name</a>
-        </div>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>View Analytics</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false">
-          <i class="fas fa-chart-area fa-fw me-1"></i><span>Senior Citizen List</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false"><i
-            class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a>
-        <a href="#" class="list-group-item list-group-item-action py-3 ripple" active="false"><i
-            class="fas fa-chart-line fa-fw me-3"></i><span>Help</span></a>
-      </div>
-    </div>
-  </nav>
-  <!-- Sidebar -->
-
-  <!-- Navbar -->
-  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg fixed-top">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <a class="navbar-brand mt-2 mt-lg-0" href="#">
-        <img
-          src="../../assets/img/hypex-logo.png"
-          height="15"
-          alt="MDB Logo"
-          loading="lazy"
-        />
-      </a>
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">ElderList</a>
-        </li>
-      </ul>
-      <!-- Left links -->
-    </div>
-    <!-- Collapsible wrapper -->
-    <!-- Right elements -->
-    <div class="right d-flex align-items-center">
-      <!-- Icon -->
-      <!-- Notifications -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-</svg>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><span class="dropdown-item-text">Notifications</span></li>
-            <li><a class="dropdown-item" href="#">Notif 1</a></li>
-            <li><a class="dropdown-item" href="#">Notif 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-      <!-- Avatar -->
-      <div class="dropdown">
-        <div>
-        <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img
-            src="../../assets/img/hypex-logo.png"
-            class="rounded-circle"
-            height="25"
-            alt="Black and White Portrait of a Man"
-            loading="lazy"
-          />
-        </a>
-      </div>
-      <div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Office Account
-          </a>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><span class="dropdown-item-text">Profile </span></li>
-            <li><a class="dropdown-item" href="#">My Account</a></li>
-            <li><a class="dropdown-item" href="#">Sign Out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-      </div>
-      </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-</svg>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><span class="dropdown-item-text">Enable Dark Theme</span></li>
-            <li><a class="dropdown-item" href="#">Language: Switch to </a></li>
-            <li><a class="dropdown-item" href="#">Accesibility Mode: </a></li>
-            <div class="dropdown-divider"></div>
-            <li class="dropdown-item" href="#">Send Feedback</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
-</header>
-<!--Main Navigation-->
 <main class="vh-100">
   <div class="container pt-4">
-    <h1 >Senior Citizen List</h1>
+    <h1 >Settings</h1>
     <h2>User Settings</h2>
     <hr>
   </div>
 
+  <div>
+    <div class="avatar">
+    <div class="d-flex mb-0">
+        <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg"
+        class="rounded-circle" alt="example placeholder" style="width: 100px;" />
+        <div class="btn btn-primary btn-rounded">
+            <label class="form-label text-white m-1" for="customFile2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+</svg></label>
+            <input type="file" class="form-control d-none" id="customFile2" />
+          </div>
+    <h3 class="d-flex">Name</h3>
+    </div>
+    </div>
+  </div>
 
-  <section class="gradient-custom">
+  <div>
+    <div class="details d-flex flex-direction-row pt-2">
+      <div class="row-child">
+        <div class="row-child-btn">
+          <h4>Email</h4>
+          <button type="button" class="btn btn-primary email-btn">Edit</button>
+        </div>
+        <p> user@example.com</p>
+      </div>
+      <div class="row-child">
+        <div class="row-child-btn">
+          <h4>Telephone Number</h4>
+          <button type="button" class="btn btn-primary tel-btn">Edit</button>
+        </div>
+        <p> 0XX-XXX-YYYY</p>
+      </div>
+    </div>
+    <div class="password">
+        <h4>Password</h4>
+        <button type="button" class="btn btn-primary">Change Password</button>
+      </div>
+  </div>
 
-</section>
+  <div class="theme pt-2">
+    <h3>Appearance</h3>
+    <h4>Theme</h4>
+    <div class="theme-toggles">
+      <div>
+        <button class="light-mode">
+          <div class="theme-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 -5 20 20">
+            <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+            </svg>
+          <p>Light Mode</p>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          </div>
+        </button>
+      </div>
+      <div>
+        <button class="dark-mode">
+          <div class="theme-label">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 -5 20 20">
+  <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+</svg>
+          <p>Dark Mode</p>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
 
+  <div class="accessibility pt-2">
+    <div class="desc d-flex">
+        <h3>Accessibility</h3>
+        <p>Accesibility Mode: <span>Off</span></p>
+        <p class="desc-p"><span>*Accessibility Mode increases font-size</span><span>and contrast to improve text readability</span><span>and promote easier usage.</span></p>
+    </div>
+    <button type="button" class="btn btn-primary"><span>Turn On</span></button>
+  </div>
+
+  <div class="language pt-2">
+    <div class="lang d-flex">
+        <h3>Language</h3>
+        <p>Current Language: <span>English</span></p>
+        <p class="desc-p">*Switch between English and Filipino</p>
+    </div>
+    <button type="button" class="btn btn-primary">Switch to <span> Filipino</span></button>
+  </div>
 
 </main>
-
 </template>
 
 <style scoped>
 main {
-    padding-top: 7vh;
-}
-body {
-background-color: #fbfbfb;
-}
-section {
-    height: calc(100vh-7vh);
-}
-.navbar {
-  height: 7vh;
-}
-.navbar-nav {
-  font-size: larger;
-  font-weight: bolder;
-}
-.container-fluid {
-  padding-left: 3rem;
-}
-.right {
-  padding-right: 4rem;
-}
-.right .navbar-collapse {
-  padding-right: 1.5rem;
-}
-.bg {
-  background-color: #89CFF1 !important;
-}
-.navbar a {
-  color: black;
-}
-.list-group {
-  padding-top: 3rem;
-}
-#sidebarMenu {
-  text-align: left;
-}
-.profile img{
-  height: 8rem;
-  border: 2px solid black;
-  border-radius: 50%;
-  background-color: #89CFF1;
-}
-.profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 1rem;
-}
-.profile a {
-  padding-bottom: 1rem;
-  font-size: larger;
-  font-weight: bolder;
-  color: black;
+    padding-top: 0;
+    padding-left: 0;
 }
 .container {
-  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  font-size: larger;
+  align-items: flex-start;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 hr {
-  border: 2px solid black;
-  width: 160%;
+  border: 2px solid black !important;
+  width: 128%;
+  margin-left: 0;
+  margin-right: auto;
 }
-.dropdown {
+h1 {
+  font-size: xx-large;
+  margin-left: 0;
+}
+h2 {
+  font-size: x-large;
+}
+.avatar h3 {
+  align-items: center;
+  margin: 0 1rem;
+}
+.avatar {
+  margin: 0 1rem;
+  position: relative;
+}
+.avatar .btn {
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  position: absolute;
+  bottom: 0;
+  margin-left: 4rem;
 }
-.dropdown img {
-  height: 3rem;
-  border: 2px solid black;
+.btn-rounded .form-label {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  margin: 0;
+}
+
+.btn-rounded {
   border-radius: 50%;
+  width: 30px; /* adjust the size as needed */
+  height: 30px; /* adjust the size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  margin: 0 0.5rem;
+}
+.details {
+  margin-top: 1rem;
+  margin-left: 2rem;
+}
+.row-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 5rem;
+}
+.row-child-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.row-child-btn .email-btn {
+margin-left: 10rem;
+}
+.row-child-btn .tel-btn {
+  margin-left: 5rem;
+}
+.password {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  margin-left: 2rem;
+}
+.theme {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+.theme-label {
+  display: flex;
+  align-content: center;
+  margin: 0 1rem;
+}
+.theme button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: .5rem .5rem;
+  margin-right: 1rem;
+}
+.theme .bi {
+  margin: 0 .5rem;
+}
+.theme-toggles {
+  display: flex;
+}
+.light-mode {
   background-color: white;
 }
-
-
-
-
-
-@media (min-width: 991.98px) {
-main {
-padding-left: 245px;
-padding-right: 5px;
+.dark-mode {
+  background-color: black;
+  color: white;
 }
+.desc {
+  align-items: flex-start;
+  flex-direction: column;
 }
-/* Sidebar */
-.sidebar {
-position: fixed;
-top: 0;
-bottom: 0;
-left: 0;
-padding: 58px 0 0; /* Height of navbar */
-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-width: 240px;
-z-index: 600;
+.desc p {
+  margin-bottom:  0;
 }
-
-@media (max-width: 991.98px) {
-.sidebar {
-width: 100%;
+.desc-p {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
 }
+.accessibility {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 10px;
 }
-.sidebar .active {
-border-radius: 5px;
-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+.accessibility button {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5rem;
+  margin-top: 3rem;
 }
-
-.sidebar-sticky {
-position: relative;
-top: 0;
-height: calc(100vh - 48px);
-padding-top: 0.5rem;
-overflow-x: hidden;
-overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+.language {
+  margin-left: 2rem;
+  margin-top: 1rem;
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 10px;
+}
+.language button {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 6rem;
+  margin-top: 2rem;
+}
+.lang{
+  align-items: flex-start;
+  flex-direction: column;
+}
+.lang p {
+  margin-bottom:  0;
+}
+span {
+  margin-left: .2rem;
 }
 </style>

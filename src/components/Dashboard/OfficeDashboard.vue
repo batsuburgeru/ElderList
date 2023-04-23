@@ -162,7 +162,7 @@
     <main class = "vh-100">
       <div v-if="activeButton === 'viewAnalytics'">View Analytics content goes here</div>
       <div v-if="activeButton === 'seniorCitizenList'"><SeniorCitizenList /></div>
-      <div v-if="activeButton === 'settings'">Settings content goes here</div>
+      <div v-if="activeButton === 'settings'"><SettingsPage/></div>
       <div v-if="activeButton === 'help'">Help content goes here</div>
     </main>
     <!-- Main content -->
@@ -171,11 +171,11 @@
 
 <script>
 import SeniorCitizenList from '../OtherPages/SeniorCitizenList.vue';
-
+import SettingsPage from '../OtherPages/SettingsPage.vue';
 export default {
   name: 'MainNavigation',
   components: {
-    SeniorCitizenList,
+    SeniorCitizenList, SettingsPage
   },
   data() {
     return {
@@ -185,7 +185,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+main {
+    padding-top: 7vh;
+    padding-left: 240px;
+}
 .navbar {
 height: 7vh;
 }
