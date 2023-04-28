@@ -108,8 +108,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin: 0;
 }
 hr {
   border: 2px solid black !important;

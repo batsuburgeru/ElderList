@@ -1,6 +1,5 @@
 <template>
   <!--Main Navigation-->
-  <header>
     <!-- Sidebar -->
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
@@ -160,22 +159,23 @@
 
     <!-- Main content -->
     <main class = "vh-100">
-      <div v-if="activeButton === 'viewAnalytics'">View Analytics content goes here</div>
+      <div v-if="activeButton === 'viewAnalytics'"><AnalyticsPage/></div>
       <div v-if="activeButton === 'seniorCitizenList'"><SeniorCitizenList /></div>
       <div v-if="activeButton === 'settings'"><SettingsPage/></div>
-      <div v-if="activeButton === 'help'">Help content goes here</div>
+      <div v-if="activeButton === 'help'"><HelpPage/></div>
     </main>
     <!-- Main content -->
-  </header>
 </template>
 
 <script>
 import SeniorCitizenList from '../OtherPages/SeniorCitizenList.vue';
 import SettingsPage from '../OtherPages/SettingsPage.vue';
+import HelpPage from '../OtherPages/HelpPage.vue'
+import AnalyticsPage from '../OtherPages/AnalyticsPage.vue'
 export default {
   name: 'MainNavigation',
   components: {
-    SeniorCitizenList, SettingsPage
+    SeniorCitizenList, SettingsPage, HelpPage, AnalyticsPage
   },
   data() {
     return {
