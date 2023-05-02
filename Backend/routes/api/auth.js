@@ -3,7 +3,7 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 var dbConn = require('../../config/db');
 
-router.post('/signup', async (req, res, next) => {
+router.post('/seniorSignup', async (req, res, next) => {
   var firstName = req.body.firstName;
   var middleName = req.body.middleName;
   var lastName = req.body.lastName;
@@ -15,12 +15,13 @@ router.post('/signup', async (req, res, next) => {
   var address = req.body.address;
   var email = req.body.email;
   var password = req.body.password;
+  var role = 'seniorCitizen';
   var accountId = " ";
 
   try {
     // Insert user's account credentials into account_tb
-    const accountQuery = `INSERT INTO account_tb (email, password) VALUES (?, ?)`;
-    const accountValues = [email, password];
+    const accountQuery = `INSERT INTO account_tb (email, password, role) VALUES (?, ?, ?)`;
+    const accountValues = [email, password, role];
     const accountResult = await dbConn.query(accountQuery, accountValues, function(error, results, fields) {
       console.log(results);
       accountId = results.insertId;
@@ -41,6 +42,71 @@ router.post('/signup', async (req, res, next) => {
     console.error(error);
     return next(error);
   }
+});
+
+router.post('/guardianSignup', async (req, res, next) => {
+  var firstName = req.body.firstName;
+  var middleName = req.body.middleName;
+  var lastName = req.body.lastName;
+  var contactNumber = req.body.contactNumber;
+  var email = req.body.email;
+  var password = req.body.password;
+  var role = 'guardian';
+  var accountId = " ";
+
+  try {
+    // Insert user's account credentials into account_tb
+    const accountQuery = `INSERT INTO account_tb (email, password, role) VALUES (?, ?, ?)`;
+    const accountValues = [email, password, role];
+    const accountResult = await dbConn.query(accountQuery, accountValues, function(error, results, fields) {
+      console.log(results);
+      accountId = results.insertId;
+
+      // Insert user's basic info into seniorcitizen_tb with accountId as foreign key
+      const guardianQuery = `INSERT INTO guardian_tb (accountId, firstName, middleName, lastName, contactNumber) VALUES (?,?,?,?,?)`;
+      const guardianValues = [accountId, firstName, middleName, lastName, contactNumber];
+      dbConn.query(guardianQuery, guardianValues, function(error, results, fields) {
+        if (error) {
+          console.error(error);
+          return next(error);
+        }
+        const guardianId = results.insertId;
+        res.status(200).json({ success: true, guardianId:guardianId });
+      });
+    })
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+});
+
+router.post('/login',(req,res,next) => {
+  var email = req.body.email;
+  var password = req.body.password;
+
+try {
+  sqlQuery = `SELECT * FROM account_tb WHERE email="${email}" AND password="${password}"`;
+  dbConn.query (sqlQuery, function(error,results) {
+    console.log(results);
+    Object.keys(results).forEach(function(key){
+  var row = results[key];
+  var accountId = row.accountId;
+  var email = row.email;
+  var role = row.role;
+  var data = {
+    accountId:row.accountId,
+    email:row.email,
+    role:row.role,
+};
+//Create Token
+  token = jwt.sign({data:data},process.env.SECRET_TOKEN,{expiresIn: '1h'});
+  res.status(200).json({success:true,token:token});
+});
+});
+} catch (error) {
+console.log(error);
+return next(error)
+}
 });
 
 module.exports = router;

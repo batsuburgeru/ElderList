@@ -20,27 +20,27 @@
 
                       <div class = "left-forms">
                         <div class="mb-md-0 mt-md-0 pb-0">
-                            <p class="out-label text-start">First Name *</p>
-                            <div class="form-outline form-white mb-4">
-                                <input type="text" id="firstNameX" class="form-control form-control-lg" />
-                                <label class="form-label" for="firstNameX">First Name</label>
-                            </div>
-                        </div>
+                    <p class="out-label text-start">First Name *</p>
+                    <div class="form-outline form-white mb-4">
+                        <input required type="text" id="firstNameX" class="form-control form-control-lg" v-model="firstName"/>
+                        <label class="form-label form-label-above" for="firstNameX">First Name</label>
+                    </div>
+                  </div>
 
-                        <div class="mb-md-0 mt-md-0 pb-0">
-                            <p class="out-label text-start">Contact No. *</p>
-                            <div class="form-outline form-white mb-4">
-                                <input type="text" id="contactNumberX" class="form-control form-control-lg" />
-                                <label class="form-label" for="contactNumberX">+63</label>
-                            </div>
-                        </div>
+                  <div class="mb-md-0 mt-md-0 pb-0">
+                    <p class="out-label text-start">Middle Name</p>
+                    <div class="form-outline form-white mb-4">
+                        <input required type="text" id="middleNameX" class="form-control form-control-lg" v-model="middleName"/>
+                        <label class="form-label form-label-above" for="middleNameX">Middle Name</label>
+                    </div>
+                  </div>
 
-                        <div class="mb-md-0 mt-md-0 pb-0">
-                          <p class = "out-label text-start">Password *</p>
-                          <div class="form-outline form-white mb-4">
-                          <input type="text" id="typePasswordX" class="form-control form-control-lg" />
-                          <label class="form-label" for="typePasswordX">Password</label>
-                          </div>
+                  <div class="mb-md-0 mt-md-0 pb-0">
+                            <p class="out-label text-start">Last Name *</p>
+                            <div class="form-outline form-white mb-4">
+                                <input required type="text" id="lastNameX" class="form-control form-control-lg" v-model="lastName"/>
+                                <label class="form-label" for="lastNameX">Last Name</label>
+                            </div>
                         </div>
 
                         <div class="attachFile">
@@ -54,33 +54,41 @@
                       </div>
 
                       <div class = "right-forms">
-                        <div class="mb-md-0 mt-md-0 pb-0">
-                            <p class="out-label text-start">Last Name *</p>
-                            <div class="form-outline form-white mb-4">
-                                <input type="text" id="lastNameX" class="form-control form-control-lg" />
-                                <label class="form-label" for="lastNameX">Last Name</label>
-                            </div>
-                        </div>
 
                         <div class="mb-md-0 mt-md-0 pb-0">
-                            <p class="out-label text-start">E-mail address *</p>
-                            <div class="form-outline form-white mb-4">
-                                <input type="text" id="emailX" class="form-control form-control-lg" />
-                                <label class="form-label" for="emailX">Email Address</label>
-                            </div>
-                        </div>
+                    <p class="out-label text-start">Contact No. *</p>
+                    <div class="form-outline form-white mb-4">
+                      <input maxlength="11" required type="text" id="contactNumberX" class="form-control form-control-lg" v-model="contactNumber"/>
+                      <label class="form-label" for="contactNumberX">09XXXXXXXXX</label>
+                    </div>
+                  </div>
 
                         <div class="mb-md-0 mt-md-0 pb-0">
-                          <p class = "out-label text-start">Confirm Password *</p>
+                    <p class = "out-label text-start">Email *</p>
+                    <div class="form-outline form-white mb-4">
+                      <input required type="email" id="emailX" class="form-control form-control-lg" v-model="email"/>
+                      <label class="form-label" for="emailX">Email</label>
+                    </div>
+                  </div>
+
+                  <div class="mb-md-0 mt-md-0 pb-0">
+                          <p class = "out-label text-start">Password *</p>
                           <div class="form-outline form-white mb-4">
-                          <input type="text" id="confirmPasswordX" class="form-control form-control-lg" />
-                          <label class="form-label" for="confirmPasswordX">Re-type Password</label>
+                            <button @click="toggleShow">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye d-flex" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg>
+                            </button>
+                            <input v-if="showPassword" type="text" class="input form-control form-control-lg" v-model="password" />
+                           <input required v-else type="password" id="passwordX" class="form-control form-control-lg" v-model="password"/>
+                          <label class="form-label" for="passwordX">Password</label>
                           </div>
-                        </div>
+                        </div>  
                       </div>       
                     </div>
                     <div>
-                      <button class="btn btn-lg px-5" type="submit">Register</button>
+                      <button class="btn btn-lg px-5" type="submit" @click="submitForm">Register</button>
                     </div>
                 </div>
               </div>
@@ -94,12 +102,51 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
 
 export default {
     components: {
       MDBNavbar,MDBNavbarBrand,
     },
+    data () {
+      return {
+        showPassword: false,
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        contactNumber: '',
+        email: '',
+        password: ''
+      }
+    },
+    computed: {
+    buttonLabel() {
+      return (this.showPassword) ? "Hide" : "Show";
+    }
+  },
+    methods: {
+      async submitForm() {
+        try {
+        const response = await axios.post('http://localhost:5000/auth/guardianSignup', {
+        firstName: this.firstName,
+        middleName: this.middleName,
+        lastName: this.lastName,
+        contactNumber: this.contactNumber,
+        email: this.email,
+        password: this.password,
+          });
+          console.log(response.data);
+          alert('Form Submitted Successfully!');
+        } catch (error) {
+          console.error(error);
+          alert('An error occured while submitting the form.')
+        }
+      },
+      toggleShow() {
+      this.showPassword = !this.showPassword;
+    }
+    }
   };
 </script>
 
@@ -182,5 +229,21 @@ export default {
   margin-bottom: 2rem;
   margin-right: 3rem;
   float: right;
+}
+
+.form-outline input[type="text"]:valid ~ label,
+.form-outline input[type="email"]:valid ~ label,
+.form-outline input[type="password"]:valid ~ label,
+.form-outline input[type="number"]:valid ~ label {
+  transform: translateY(-1.25rem) scale(0.85);
+}
+.form-outline > button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  margin-right: 1rem;
+  border: none;
+  background-color: white;
 }
 </style>

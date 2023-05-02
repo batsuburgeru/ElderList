@@ -30,8 +30,8 @@
                   <div class="mb-md-0 mt-md-0 pb-0">
                     <p class="out-label text-start">Contact No. *</p>
                     <div class="form-outline form-white mb-4">
-                      <input maxlength="11" required type="text" id="contactNumberX" class="form-control form-control-lg" v-model="contactNumber" />
-                      <label class="form-label" for="contactNumberX">+63</label>
+                      <input maxlength="11" required type="text" id="contactNumberX" class="form-control form-control-lg" v-model="contactNumber"/>
+                      <label class="form-label" for="contactNumberX">09XXXXXXXXX</label>
                     </div>
                   </div>
 
@@ -174,7 +174,7 @@ export default {
     methods: {
       async submitForm() {
         try {
-        const response = await axios.post('http://localhost:5000/auth/signup', {
+        const response = await axios.post('http://localhost:5000/auth/seniorSignup', {
         firstName: this.firstName,
         middleName: this.middleName,
         lastName: this.lastName,
@@ -270,7 +270,8 @@ export default {
 }
 .form-outline input[type="text"]:valid ~ label,
 .form-outline input[type="email"]:valid ~ label,
-.form-outline input[type="password"]:valid ~ label {
+.form-outline input[type="password"]:valid ~ label,
+.form-outline input[type="number"]:valid ~ label {
   transform: translateY(-1.25rem) scale(0.85);
 }
 .form-outline > button {

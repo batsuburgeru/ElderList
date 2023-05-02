@@ -11,7 +11,6 @@
             <a href="#" class="profile">Office Name</a>
           </div>
           <a
-            href="#"
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'viewAnalytics' }"
             @click="activeButton = 'viewAnalytics'"
@@ -19,7 +18,6 @@
             <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>View Analytics</span>
           </a>
           <a
-            href="#"
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'seniorCitizenList' }"
             @click="activeButton = 'seniorCitizenList'"
@@ -27,7 +25,13 @@
             <i class="fas fa-chart-area fa-fw me-1"></i><span>Senior Citizen List</span>
           </a>
           <a
-            href="#"
+            class="list-group-item list-group-item-action py-3 ripple"
+            :class="{ active: activeButton === 'registration' }"
+            @click="activeButton = 'registration'"
+          >
+            <i class="fas fa-chart-line fa-fw me-3"></i><span>Registrations</span>
+          </a>
+          <a
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'settings' }"
             @click="activeButton = 'settings'"
@@ -35,13 +39,13 @@
             <i class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a
           >
           <a
-            href="#"
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'help' }"
             @click="activeButton = 'help'"
           >
             <i class="fas fa-chart-line fa-fw me-3"></i><span>Help</span>
           </a>
+          
         </div>
       </div>
     </nav>
@@ -163,19 +167,23 @@
       <div v-if="activeButton === 'seniorCitizenList'"><SeniorCitizenList /></div>
       <div v-if="activeButton === 'settings'"><SettingsPage/></div>
       <div v-if="activeButton === 'help'"><HelpPage/></div>
+      <div v-if="activeButton === 'registration'"><RegistrationRequest/></div>
+      
     </main>
     <!-- Main content -->
 </template>
 
 <script>
-import SeniorCitizenList from '../OtherPages/SeniorCitizenList.vue';
-import SettingsPage from '../OtherPages/SettingsPage.vue';
-import HelpPage from '../OtherPages/HelpPage.vue'
-import AnalyticsPage from '../OtherPages/AnalyticsPage.vue'
+import SeniorCitizenList from '../OfficeDashboardPages/SeniorCitizenList.vue';
+import SettingsPage from '../OfficeDashboardPages/SettingsPage.vue';
+import HelpPage from '../OfficeDashboardPages/HelpPage.vue';
+import AnalyticsPage from '../OfficeDashboardPages/AnalyticsPage.vue';
+import RegistrationRequest from '../OfficeDashboardPages/RegistrationRequest.vue';
+
 export default {
   name: 'MainNavigation',
   components: {
-    SeniorCitizenList, SettingsPage, HelpPage, AnalyticsPage
+    SeniorCitizenList, SettingsPage, HelpPage, AnalyticsPage, RegistrationRequest
   },
   data() {
     return {

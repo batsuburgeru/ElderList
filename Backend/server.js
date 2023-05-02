@@ -3,7 +3,7 @@ const app = express();
 
 const cors = require('cors');
 app.use(cors({
-    origin: ['http://localhost:8081'],
+    origin: ['http://localhost:8080'],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -12,12 +12,14 @@ app.use(cors({
 
 
 const auth = require('./routes/api/auth.js');
+const office = require('./routes/api/office.js');
 
 // init Middleware
 app.use(express.json({ extended: false }));
 app.get('/', (req, res) => res.send('API Running'));
 
 app.use('/auth', auth);
+app.use('/office', office);
 
 const PORT = process.env.PORT || 5000;
 
