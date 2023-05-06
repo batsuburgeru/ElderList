@@ -53,7 +53,7 @@
                         <div class="attachFile">
                             <div class="mb-3 upload">
                             <label for="formFile" class="form-label">Attach Files</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" type="file" id="formFile" @change="handleFileChange">
                           </div>
                           <p>Requirements:</p>
                           <p>Senior Citizen ID / Birth Certificate</p>
@@ -164,7 +164,8 @@ export default {
         email: '',
         password: '',
         showPassword: false,
-      }
+        file: null
+      };
     },
     computed: {
     buttonLabel() {
@@ -173,30 +174,41 @@ export default {
   },
     methods: {
       async submitForm() {
-        try {
-        const response = await axios.post('http://localhost:5000/auth/seniorSignup', {
-        firstName: this.firstName,
-        middleName: this.middleName,
-        lastName: this.lastName,
-        contactNumber: this.contactNumber,
-        dateOfBirth: this.dateOfBirth,
-        idNumber: this.idNumber,
-        dateOfIssuance: this.dateOfIssuance,
-        dateOfExpiration: this.dateOfExpiration,
-        address: this.address,
-        email: this.email,
-        password: this.password,
-          });
-          console.log(response.data);
-          alert('Form Submitted Successfully!');
-        } catch (error) {
-          console.error(error);
-          alert('An error occured while submitting the form.')
-        }
-      },
-      toggleShow() {
-      this.showPassword = !this.showPassword;
-    }
+  try {
+    const formData = new FormData();
+    formData.append('image', this.file);
+
+    formData.append('firstName', this.firstName);
+    formData.append('middleName', this.middleName);
+    formData.append('lastName', this.lastName);
+    formData.append('contactNumber', this.contactNumber);
+    formData.append('dateOfBirth', this.dateOfBirth);
+    formData.append('idNumber', this.idNumber);
+    formData.append('dateOfIssuance', this.dateOfIssuance);
+    formData.append('dateOfExpiration', this.dateOfExpiration);
+    formData.append('address', this.address);
+    formData.append('email', this.email);
+    formData.append('password', this.password);
+
+    const response = await axios.post('http://localhost:5000/auth/seniorSignup', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    console.log(response.data);
+    alert('Form Submitted Successfully!');
+  } catch (error) {
+    console.error(error);
+    alert('An error occurred while submitting the form.');
+  }
+},
+handleFileChange(event) {
+    this.file = event.target.files[0];
+  },
+    toggleShow() {
+    this.showPassword = !this.showPassword;
+    },
     }
   };
 

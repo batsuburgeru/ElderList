@@ -25,8 +25,6 @@ router.get('/newlyRegistered', async (req, res, next) => {
 });
 
 
-
-
 router.patch('/registrationConfirm/:id', async (req, res, next) => {
     const { id } = req.params;
     try {

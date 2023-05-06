@@ -2,8 +2,23 @@ var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken');
 var dbConn = require('../../config/db');
+const multer = require('multer');
+const path = require('path');
 
-router.post('/seniorSignup', async (req, res, next) => {
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'File Upload/ID Upload/'); // Directory where uploaded files will be stored
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      const fileExtension = path.extname(file.originalname);
+      cb(null, file.fieldname + '-' + uniqueSuffix + fileExtension);
+    }
+  });
+
+  const upload = multer({ storage: storage });
+
+router.post('/seniorSignup', upload.single('image'), async (req, res, next) => {
   var firstName = req.body.firstName;
   var middleName = req.body.middleName;
   var lastName = req.body.lastName;
@@ -26,9 +41,11 @@ router.post('/seniorSignup', async (req, res, next) => {
       console.log(results);
       accountId = results.insertId;
 
+      const filePath = req.file.path;
+
       // Insert user's basic info into seniorcitizen_tb with accountId as foreign key
-      const seniorQuery = `INSERT INTO seniorcitizen_tb (accountId, firstName, middleName, lastName, contactNumber, dateOfBirth, address, idNumber, dateOfIssue, expirationDate) VALUES (?,?,?,?,?,?,?,?,?,?)`;
-      const seniorValues = [accountId, firstName, middleName, lastName, contactNumber, dateOfBirth, address, idNumber, dateOfIssuance, dateOfExpiration];
+      const seniorQuery = `INSERT INTO seniorcitizen_tb (accountId, firstName, middleName, lastName, contactNumber, dateOfBirth, address, idNumber, dateOfIssue, expirationDate, seniorUpload) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+      const seniorValues = [accountId, firstName, middleName, lastName, contactNumber, dateOfBirth, address, idNumber, dateOfIssuance, dateOfExpiration, filePath];
       dbConn.query(seniorQuery, seniorValues, function(error, results, fields) {
         if (error) {
           console.error(error);
