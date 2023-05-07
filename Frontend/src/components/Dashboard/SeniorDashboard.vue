@@ -113,57 +113,71 @@
     <table class="table table-striped table-hover table-bordered">
   <thead>
     <tr class="title">
-        <th colspan="2">My Booklet</th>
-        <th colspan="2">Remaining Balance:</th>
+        <th colspan="4">My Booklet</th>
+        <th colspan="1">Remaining Balance: {{ calculateRemainingLimit(bookletDetails) }}</th>
     </tr>
     <tr class="column-title">
       <th>Reference ID</th>
       <th>Name of Product</th>
       <th>Number of Units</th>
       <th>Date</th>
+      <th>Discount</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-    <td>001</td>
-    <td>Book</td>
-    <td>5</td>
-    <td>2022-03-28</td>
-  </tr>
-  <tr>
-    <td>002</td>
-    <td>Pen</td>
-    <td>10</td>
-    <td>2022-03-29</td>
-  </tr>
-  <tr>
-    <td>003</td>
-    <td>Notebook</td>
-    <td>3</td>
-    <td>2022-03-30</td>
-  </tr>
+    <tr v-for="(booklet, index) in bookletDetails" :key="index">
+          <td>{{ booklet.referenceId }}</td>
+          <td>{{ booklet.nameOfProduct }}</td>
+          <td>{{ booklet.numberOfUnits }}</td>
+          <td>{{ new Date(booklet.dateOfPurchase).toLocaleDateString() }}</td>
+          <td>{{ booklet.discountAmount }}</td>
+        </tr>
   </tbody>
-<!--  
-     <tbody>
-    <?php
-      // Retrieve data from database
-      $data = // your code to retrieve data from database
-
-      // Loop through data and generate table rows and cells
-      foreach ($data as $row) {
-        echo "<tr>";
-        echo "<td>" . $row['Reference ID'] . "</td>";
-        echo "<td>" . $row['Name of Product'] . "</td>";
-        echo "<td>" . $row['Number of Units'] . "</td>";
-        echo "<td>" . $row['Data'] . "</td>";
-        echo "</tr>";
-      }
-    ?>
-  </tbody>
--->
 </table>
 </section>
 </template>
+<script>
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      bookletDetails: [],
+    }
+  },
+
+  methods: {
+    calculateRemainingLimit(bookletDetails) {
+      const weeklyLimit = 150000; // Weekly discount limit in PHP
+      const currentDate = new Date();
+      const startOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay());
+      const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+      let remainingBalance = weeklyLimit;
+      for (const booklet of bookletDetails) {
+        if (new Date(booklet.dateOfPurchase) >= startOfWeek && new Date(booklet.dateOfPurchase) < endOfWeek) {
+          // Purchase falls within the current week
+          remainingBalance -= booklet.discountAmount;
+        }
+      }
+      return remainingBalance;
+    }
+  },
+
+async mounted() {
+  try {
+    const response = await axios.get('http://localhost:5000/senior/bookletRender');
+    this.bookletDetails = response.data.bookletDetails;
+    console.log(this.bookletDetails);
+    // Do something with the seniorDetails data here
+  } catch (error) {
+    console.error(error);
+  }
+  
+}};
+
+
+</script>
 
 <style scoped>
 nav {
@@ -179,7 +193,7 @@ nav {
 .gradient-custom {
   background: white;
 }
-th[colspan="2"] {
+th[colspan] {
   background: #FCCA0C;
   font-weight: 1000;
   font-size:large;

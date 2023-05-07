@@ -1,20 +1,20 @@
 <template>
   <SeniorRegister/>
   <GuardianRegister/>
-  <OfficeDashboard/>
+  <SeniorDashboard/>
   
 </template>
 
 <script>
 import SeniorRegister from './components/Register/SeniorRegister.vue';
 import GuardianRegister from './components/Register/GuardianRegister.vue';
-import OfficeDashboard from './components/Dashboard/OfficeDashboard.vue';
+import SeniorDashboard from './components/Dashboard/SeniorDashboard.vue';
 
 
 
 export default {
   name: 'App',
-  components: { SeniorRegister, GuardianRegister, OfficeDashboard }
+  components: { SeniorRegister, GuardianRegister, SeniorDashboard }
 }
 </script>
 

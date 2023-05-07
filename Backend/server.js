@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const multer = require('multer');
-const path = require('path');
+
 
 const cors = require('cors');
 app.use(cors({
@@ -15,6 +14,8 @@ app.use(cors({
 
 const auth = require('./routes/api/auth.js');
 const office = require('./routes/api/office.js');
+const store = require('./routes/api/store.js');
+const senior = require('./routes/api/senior.js');
 
 // init Middleware
 app.use(express.json({ extended: false }));
@@ -22,6 +23,8 @@ app.get('/', (req, res) => res.send('API Running'));
 
 app.use('/auth', auth);
 app.use('/office', office);
+app.use('/store/', store);
+app.use('/senior', senior);
 
 const PORT = process.env.PORT || 5000;
 
