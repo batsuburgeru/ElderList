@@ -97,33 +97,40 @@ router.post('/guardianSignup', async (req, res, next) => {
   }
 });
 
-router.post('/login',(req,res,next) => {
-  var email = req.body.email;
-  var password = req.body.password;
+router.post('/login', (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
-try {
-  sqlQuery = `SELECT * FROM account_tb WHERE email="${email}" AND password="${password}"`;
-  dbConn.query (sqlQuery, function(error,results) {
-    console.log(results);
-    Object.keys(results).forEach(function(key){
-  var row = results[key];
-  var accountId = row.accountId;
-  var email = row.email;
-  var role = row.role;
-  var data = {
-    accountId:row.accountId,
-    email:row.email,
-    role:row.role,
-};
-//Create Token
-  token = jwt.sign({data:data},process.env.SECRET_TOKEN,{expiresIn: '1h'});
-  res.status(200).json({success:true,token:token});
-});
-});
-} catch (error) {
-console.log(error);
-return next(error)
-}
+  try {
+    const sqlQuery = `SELECT * FROM account_tb WHERE email = ? AND password = ?`;
+    const sqlValues = [email, password];
+
+    dbConn.query(sqlQuery, sqlValues, function(error, results) {
+      if (error) {
+        console.error(error);
+        return next(error);
+      }
+
+      if (results.length === 0) {
+        // Invalid credentials
+        return res.status(401).json({ success: false, message: 'Invalid email or password' });
+      }
+
+      // User found, generate token
+      const user = results[0];
+      const data = {
+        accountId: user.accountId,
+        email: user.email,
+        role: user.role,
+      };
+      const token = jwt.sign({ data }, process.env.SECRET_TOKEN, { expiresIn: '1h' });
+
+      res.status(200).json({ success: true, token: token });
+    });
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
 });
 
 module.exports = router;

@@ -14,6 +14,7 @@ router.get('/bookletRender', async(req, res, next) => {
             return next(error);
           }
           res.status(200).json({ success: true, bookletDetails: results });
+          console.log(results)
         });
       } catch (error) {
         console.error(error);

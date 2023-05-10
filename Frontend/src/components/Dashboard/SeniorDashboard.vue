@@ -110,30 +110,43 @@
   <!-- Container wrapper -->
 </nav>
 <section class="vh-100 gradient-custom">
-    <table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr class="title">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr class="title">
         <th colspan="4">My Booklet</th>
         <th colspan="1">Remaining Balance: {{ calculateRemainingLimit(bookletDetails) }}</th>
-    </tr>
-    <tr class="column-title">
-      <th>Reference ID</th>
-      <th>Name of Product</th>
-      <th>Number of Units</th>
-      <th>Date</th>
-      <th>Discount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="(booklet, index) in bookletDetails" :key="index">
-          <td>{{ booklet.referenceId }}</td>
-          <td>{{ booklet.nameOfProduct }}</td>
-          <td>{{ booklet.numberOfUnits }}</td>
-          <td>{{ new Date(booklet.dateOfPurchase).toLocaleDateString() }}</td>
-          <td>{{ booklet.discountAmount }}</td>
-        </tr>
-  </tbody>
-</table>
+      </tr>
+      <tr class="column-title">
+        <th>Reference ID</th>
+        <th>Date of Purchase</th>
+        <th>Purchased Items</th>
+        <th>Total Price</th>
+        <th>Total Discount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(booklet, index) in bookletDetails" :key="index">
+        <td>{{ booklet.referenceId }}</td>
+        <td>{{ new Date(booklet.dateOfPurchase).toLocaleDateString() }}</td>
+        <td>
+          <table class="table table-borderless table-hover">
+            <tr class="nested-column-title ">
+              <th>Item Name</th>
+              <th>Quantity</th>
+              <th>Price / Unit</th>
+            </tr>
+            <tr v-for="(item, itemIndex) in booklet.purchasedItems" :key="itemIndex">
+              <td>{{ item.itemName }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.pricePerUnit }}</td>
+            </tr>
+          </table>
+        </td>
+        <td>{{ booklet.totalPrice}}</td>
+        <td>{{ booklet.discountAmount }}</td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 </template>
 <script>
@@ -142,7 +155,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      bookletDetails: [],
+      bookletDetails: []
     }
   },
 
@@ -161,19 +174,27 @@ export default {
         }
       }
       return remainingBalance;
-    }
+    },
+    parsePurchasedItems(purchasedItems) {
+    // Parse the JSON string to convert it into an array of objects
+    return JSON.parse(purchasedItems);
+  },
   },
 
-async mounted() {
+  async mounted() {
   try {
     const response = await axios.get('http://localhost:5000/senior/bookletRender');
-    this.bookletDetails = response.data.bookletDetails;
+    this.bookletDetails = response.data.bookletDetails.map((booklet) => {
+      return {
+        ...booklet,
+        purchasedItems: this.parsePurchasedItems(booklet.purchasedItems),
+      };
+    });
     console.log(this.bookletDetails);
-    // Do something with the seniorDetails data here
+    // Do something with the bookletDetails data here
   } catch (error) {
     console.error(error);
   }
-  
 }};
 
 
