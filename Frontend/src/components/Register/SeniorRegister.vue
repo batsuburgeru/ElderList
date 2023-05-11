@@ -239,10 +239,6 @@ handleFileChange(event) {
 .text-white {
   color: black !important;
 }
-.text-white-50 {
-  color: black !important;
-  opacity: .70;
-}
 .form-outline{
   background-color: white;
   border-radius: 50px;

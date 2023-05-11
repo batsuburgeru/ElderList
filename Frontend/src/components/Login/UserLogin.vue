@@ -24,14 +24,20 @@
               <p class="text-white-50 mb-5">Please enter your email and password!</p>
               
               <div class="form-outline form-white mb-4">
-                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                <input required type="email" id="typeEmailX" class="form-control form-control-lg" />
                 <label class="form-label" for="typeEmailX">Email</label>
               </div>
 
               <div class="form-outline form-white mb-4">
-                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
-              </div>
+                  <input required :type="showPassword ? 'text' : 'password'" id="typePasswordX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typePasswordX">Password</label>
+                  <button @click="toggleShow" class="show-password-button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye d-flex" viewBox="0 0 16 16">
+    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+  </svg>
+</button>
+                </div>
 
               <p class="small mb-5 pb-lg-2 text-start"><a class="text-white-50" href="#!">Forgot password?</a></p>
               <div class="mdb-form-check">
@@ -54,21 +60,43 @@
 <script>
   import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
   import { MDBCheckbox } from "mdb-vue-ui-kit";
-  import { ref } from "vue";
+  import { ref, onMounted} from "vue";
 
   export default {
     components: {
-      MDBCheckbox,MDBNavbar,MDBNavbarBrand,
+      MDBCheckbox, MDBNavbar, MDBNavbarBrand,
     },
     setup() {
       const checkbox2 = ref(false);
+      const showPassword = ref(false);
+
+      const toggleShow = () => {
+        showPassword.value = !showPassword.value;
+      };
+
+      onMounted(() => {
+      const rememberMePreference = localStorage.getItem('rememberMe');
+
+      if (rememberMePreference === 'true') {
+        checkbox2.value = true;
+      }
+    });
+
+    const saveRememberMePreference = () => {
+      localStorage.setItem('rememberMe', checkbox2.value.toString());
+    };
 
       return {
-        checkbox2
+        checkbox2,
+        saveRememberMePreference,
+        showPassword,
+        toggleShow
       };
     }
   };
-</script> 
+</script>
+
+
 <style scoped>
 .vh-100 {
   height: 93vh !important;
@@ -120,5 +148,19 @@
 .sign-up a {
   margin-top: .25rem;
 }
-
+.form-outline input[type="text"]:valid ~ label,
+.form-outline input[type="email"]:valid ~ label,
+.form-outline input[type="password"]:valid ~ label,
+.form-outline input[type="number"]:valid ~ label {
+  transform: translateY(-1.25rem) scale(0.85);
+}
+.form-outline > button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  margin-right: 1rem;
+  border: none;
+  background-color: white;
+}
 </style>
