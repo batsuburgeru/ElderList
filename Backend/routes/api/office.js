@@ -28,7 +28,7 @@ router.get('/newlyRegistered', async (req, res, next) => {
 router.patch('/registrationAccept/:accountId', async (req, res, next) => {
   const { accountId } = req.params;
   try {
-    const result = await dbConn.query(`UPDATE account_tb SET status = ? WHERE accountId = ?`, ['accepted', accountId]);
+    const result = await dbConn.query(`UPDATE account_tb SET status = ? WHERE accountId = ?`, ['confirmed', accountId]);
     res.json({ message: 'Account accepted' });
   } catch (error) {
     console.error(error);

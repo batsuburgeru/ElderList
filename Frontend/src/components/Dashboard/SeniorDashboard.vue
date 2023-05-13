@@ -7,8 +7,8 @@
       <!-- Navbar brand -->
       <a class="navbar-brand mt-2 mt-lg-0" href="#">
         <img
-          src="../../assets/img/hypex-logo.png"
-          height="15"
+          src="../../assets/img/elderlist-logo.png"
+          height="50"
           alt="MDB Logo"
           loading="lazy"
         />
@@ -26,27 +26,34 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Guardians
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><span class="dropdown-item-text">My Guardians</span></li>
-            <li><a class="dropdown-item" href="#">Guardian 1</a></li>
-            <li><a class="dropdown-item" href="#">Guardian 2</a></li>
-            <li><a class="dropdown-item" href="#">Guardian 3</a></li>
-          </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        My Guardians
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+        <li><span class="dropdown-item-text">My Guardians</span></li>
+        <li v-for="guardian in guardians" :key="guardian.id">
+          <a class="dropdown-item" :href="getGuardianLink(guardian.id)">{{ guardian.name }}</a>
+        </li>
+        <div class="dropdown-divider"></div>
+        <li>
+          <a href="" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addGuardianModal">Add a guardian</a>
+        </li>
+        <li>
+          <a href="" class="dropdown-item">Remove a guardian</a>
         </li>
       </ul>
-    </div>
+    </li>
+  </ul>
+</div>
         </li>
       </ul>
       <!-- Left links -->
     </div>
     <!-- Collapsible wrapper -->
     <!-- Right elements -->
-    <div class="d-flex align-items-center">
+    <div class="right d-flex align-items-center m-3">
       <!-- Icon -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -57,10 +64,10 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Language
           </a>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+          <ul class="dropdown-menu dropdown-menu-light dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><span class="dropdown-item-text">Switch to: </span></li>
-            <li><a class="dropdown-item" href="#">Language 1</a></li>
-            <li><a class="dropdown-item" href="#">Language 2</a></li>
+            <li><a class="dropdown-item disabled" href="#">English</a></li>
+            <li><a class="dropdown-item disabled" href="#">Filipino</a></li>
           </ul>
         </li>
       </ul>
@@ -70,17 +77,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav dropdown-menu-lg-end">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
   <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
 </svg>
           </a>
-          <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+          <ul class="dropdown-menu dropdown-menu-light dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><span class="dropdown-item-text">Notifications</span></li>
-            <li><a class="dropdown-item" href="#">Notif 1</a></li>
-            <li><a class="dropdown-item" href="#">Notif 2</a></li>
+            <li><a class="dropdown-item disabled" href="#">Notification 1</a></li>
+            <li><a class="dropdown-item disabled" href="#">Notification 2</a></li>
           </ul>
         </li>
       </ul>
@@ -148,6 +155,28 @@
     </tbody>
   </table>
 </section>
+
+<div class="modal fade" id="addGuardianModal" tabindex="-1" aria-labelledby="addGuardianModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addGuardianModalLabel">Add Guardian</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="guardianNameInput" class="form-label">Generate One-Time Invite Code</label>
+          <input type="text" class="form-control" id="guardianNameInput">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="addGuardian()">Generate</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" onclick="done()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 <script>
 import axios from 'axios'
@@ -226,5 +255,8 @@ th[colspan] {
 .column-title th{
     font-weight: 1000;
     font-size: large;
+}
+.right li{
+  padding-right: 1rem;
 }
 </style>

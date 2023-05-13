@@ -46,7 +46,7 @@
                         <div class="attachFile">
                             <div class="mb-3 upload">
                             <label for="formFile" class="form-label">Attach Files</label>
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" type="file" id="formFile" @change="handleFileChange">
                           </div>
                           <p>Requirements:</p>
                           <p>Valid ID</p>
@@ -109,17 +109,18 @@ export default {
     components: {
       MDBNavbar,MDBNavbarBrand,
     },
-    data () {
-      return {
-        showPassword: false,
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        contactNumber: '',
-        email: '',
-        password: ''
-      }
-    },
+    data() {
+    return {
+      showPassword: false,
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      contactNumber: '',
+      email: '',
+      password: '',
+      file: null
+    };
+  },
     computed: {
     buttonLabel() {
       return (this.showPassword) ? "Hide" : "Show";
@@ -127,22 +128,32 @@ export default {
   },
     methods: {
       async submitForm() {
-        try {
-        const response = await axios.post('http://localhost:5000/auth/guardianSignup', {
-        firstName: this.firstName,
-        middleName: this.middleName,
-        lastName: this.lastName,
-        contactNumber: this.contactNumber,
-        email: this.email,
-        password: this.password,
-          });
-          console.log(response.data);
-          alert('Form Submitted Successfully!');
-        } catch (error) {
-          console.error(error);
-          alert('An error occured while submitting the form.')
-        }
-      },
+      try {
+        const formData = new FormData();
+        formData.append('image', this.file);
+
+        formData.append('firstName', this.firstName);
+        formData.append('middleName', this.middleName);
+        formData.append('lastName', this.lastName);
+        formData.append('contactNumber', this.contactNumber);
+        formData.append('email', this.email);
+        formData.append('password', this.password);
+
+        const response = await axios.post('http://localhost:5000/auth/guardianSignup', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+        console.log(response.data);
+        alert('Form Submitted Successfully!');
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while submitting the form.');
+      }
+    },
+      handleFileChange(event) {
+    this.file = event.target.files[0];
+  },
       toggleShow() {
       this.showPassword = !this.showPassword;
     }

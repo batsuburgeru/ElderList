@@ -24,12 +24,12 @@
               <p class="text-white-50 mb-5">Please enter your email and password!</p>
               
               <div class="form-outline form-white mb-4">
-                <input required type="email" id="typeEmailX" class="form-control form-control-lg" />
+                <input required type="email" id="typeEmailX" class="form-control form-control-lg" v-model="email" />
                 <label class="form-label" for="typeEmailX">Email</label>
               </div>
 
               <div class="form-outline form-white mb-4">
-                  <input required :type="showPassword ? 'text' : 'password'" id="typePasswordX" class="form-control form-control-lg" />
+                  <input required :type="showPassword ? 'text' : 'password'" id="typePasswordX" class="form-control form-control-lg" v-model="password"/>
                   <label class="form-label" for="typePasswordX">Password</label>
                   <button @click="toggleShow" class="show-password-button">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye d-flex" viewBox="0 0 16 16">
@@ -43,7 +43,7 @@
               <div class="mdb-form-check">
                 <MDBCheckbox label="Remember Me" v-model="checkbox2"/>
               </div>
-              <button class="btn btn-lg px-5" type="submit">Sign In</button>
+              <button @click="handleSubmit" class="btn btn-lg px-5" type="submit">Sign In</button>
             </div>
             <div>
               <p class="sign-up mb-0 pb-lg-2 small mb-5">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
@@ -60,13 +60,17 @@
 <script>
   import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
   import { MDBCheckbox } from "mdb-vue-ui-kit";
-  import { ref, onMounted} from "vue";
+  import { ref, onMounted } from "vue";
 
   export default {
     components: {
-      MDBCheckbox, MDBNavbar, MDBNavbarBrand,
+      MDBCheckbox,
+      MDBNavbar,
+      MDBNavbarBrand,
     },
     setup() {
+      const email = ref('');
+      const password = ref('');
       const checkbox2 = ref(false);
       const showPassword = ref(false);
 
@@ -75,24 +79,72 @@
       };
 
       onMounted(() => {
-      const rememberMePreference = localStorage.getItem('rememberMe');
+        const rememberMePreference = localStorage.getItem('rememberMe');
 
-      if (rememberMePreference === 'true') {
-        checkbox2.value = true;
-      }
-    });
+        if (rememberMePreference === 'true') {
+          checkbox2.value = true;
+        }
+      });
 
-    const saveRememberMePreference = () => {
-      localStorage.setItem('rememberMe', checkbox2.value.toString());
-    };
+      const handleSubmit = async () => {
+        try {
+          const url = 'http://localhost:5000/auth/login'; // Update the API endpoint here
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email.value,
+              password: password.value,
+            }),
+          });
+          const data = await response.json();
+          if (response.ok) {
+            console.log('Login successful:', data);
+            email.value = '';
+            password.value = '';
+
+            // Store the token as a cookie
+            document.cookie = `token=${data.token}; expires=${new Date(data.expiresIn)}`;
+
+            // Redirect to the dashboard
+            switch (data.role) {
+              case 'seniorCitizen':
+                this.$router.push('/seniorDashboard');
+                break;
+              case 'guardian':
+                this.$router.push('/guardianDashboard');
+                break;
+              case 'admin':
+                this.$router.push('/adminDashboard');
+                break;
+              default:
+                console.error('Invalid role:', data.role);
+                break;
+            }
+          } else {
+            console.error('Login failed:', data);
+          }
+        } catch (error) {
+          console.error('Login failed:', error.message);
+        }
+      };
+
+      const saveRememberMePreference = () => {
+        localStorage.setItem('rememberMe', checkbox2.value.toString());
+      };
 
       return {
+        email,
+        password,
         checkbox2,
         saveRememberMePreference,
         showPassword,
-        toggleShow
+        toggleShow,
+        handleSubmit
       };
-    }
+    },
   };
 </script>
 
