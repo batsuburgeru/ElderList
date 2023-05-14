@@ -94,23 +94,24 @@
     </div>
       <!-- Avatar -->
       <div class="dropdown">
-        <a
-          class="dropdown-toggle d-flex align-items-center hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuAvatar"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img
-            src="../../assets/img/hypex-logo.png"
-            class="rounded-circle"
-            height="25"
-            alt="Black and White Portrait of a Man"
-            loading="lazy"
-          />
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+    <ul class="navbar-nav dropdown-menu-lg-end">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuAvatar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../assets/img/hypex-logo.png" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy" />
         </a>
-      </div>
+        <ul class="dropdown-menu dropdown-menu-light dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuAvatar">
+          <li><span class="dropdown-item-text">Account</span></li>
+          <li><a class="dropdown-item disabled" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">SignOut</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
     </div>
     <!-- Right elements -->
   </div>
@@ -166,7 +167,7 @@
       <div class="modal-body">
         <div class="mb-3">
           <label for="guardianNameInput" class="form-label">Generate One-Time Invite Code</label>
-          <input type="text" class="form-control" id="guardianNameInput">
+          <input type="text" class="form-control" id="guardianNameInput" readonly>
         </div>
         <button type="button" class="btn btn-primary" onclick="addGuardian()">Generate</button>
       </div>

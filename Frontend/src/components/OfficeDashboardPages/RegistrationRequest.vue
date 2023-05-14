@@ -27,7 +27,7 @@
           <td>{{ senior.idNumber }}</td>
           <td>{{ new Date(senior.dateOfIssue).toLocaleDateString() }}</td>
           <td>{{ new Date(senior.expirationDate).toLocaleDateString() }}</td>
-          <td>{{ senior.idUpload }}</td>
+          <td>{{ senior.seniorUpload }}</td>
           <td class="buttons">
             <button data-bs-toggle="modal" data-bs-target="#modalAccept" @click="accountId = senior.accountId"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="green" class="bi bi-check-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -162,8 +162,6 @@ async mounted() {
   });
 }
 }
-
-
 </script>
 
 
@@ -194,10 +192,11 @@ hr {
   width: 127%;
   margin-left: 0;
   margin-right: auto;
+  margin-top: .5rem;
 }
 h1 {
     margin-left: 0;
-    font-size: x-large;
+    font-size: xx-large;
     font-weight: bold;
 }
 td button {

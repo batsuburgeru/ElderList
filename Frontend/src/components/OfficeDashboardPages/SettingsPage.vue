@@ -112,16 +112,18 @@ main {
 }
 hr {
   border: 2px solid black !important;
-  width: 128%;
+  width: 127%;
   margin-left: 0;
   margin-right: auto;
+  margin-top: .5rem;
 }
 h1 {
-  font-size: xx-large;
-  margin-left: 0;
+    margin-left: 0;
+    font-size: xx-large;
+    font-weight: bold;
 }
 h2 {
-  font-size: x-large;
+  font-size: larger;
 }
 .avatar h3 {
   align-items: center;

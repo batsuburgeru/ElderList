@@ -15,37 +15,36 @@
             :class="{ active: activeButton === 'viewAnalytics' }"
             @click="activeButton = 'viewAnalytics'"
           >
-            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>View Analytics</span>
+          <i class="bi bi-graph-up-arrow"></i><span class="p-2">View Analytics</span>
           </a>
           <a
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'seniorCitizenList' }"
             @click="activeButton = 'seniorCitizenList'"
           >
-            <i class="fas fa-chart-area fa-fw me-1"></i><span>Senior Citizen List</span>
+          <i class="bi bi-people"></i><span class="p-1">Senior Citizen List</span>
           </a>
           <a
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'registration' }"
             @click="activeButton = 'registration'"
           >
-            <i class="fas fa-chart-line fa-fw me-3"></i><span>Registrations</span>
+          <i class="bi bi-file-earmark-person-fill"></i><span class="p-2">Registrations</span>
           </a>
           <a
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'settings' }"
             @click="activeButton = 'settings'"
           >
-            <i class="fas fa-lock fa-fw me-3"></i><span>Settings</span></a
+          <i class="bi bi-gear-fill"></i><span class="p-2">Settings</span></a
           >
           <a
             class="list-group-item list-group-item-action py-3 ripple"
             :class="{ active: activeButton === 'help' }"
             @click="activeButton = 'help'"
           >
-            <i class="fas fa-chart-line fa-fw me-3"></i><span>Help</span>
+          <i class="bi bi-info-circle-fill"></i><span class="p-2">Help</span>
           </a>
-          
         </div>
       </div>
     </nav>
@@ -57,9 +56,9 @@
     <!-- Toggle button -->
     <a class="navbar-brand mt-2 mt-lg-0" href="#">
       <img
-        src="../../assets/img/hypex-logo.png"
-        height="15"
-        alt="MDB Logo"
+        src="../../assets/img/elderlist-logo.png"
+        height="50"
+        alt="ElderList Logo"
         loading="lazy"
       />
     </a>
@@ -89,8 +88,8 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
           <li><span class="dropdown-item-text">Notifications</span></li>
-          <li><a class="dropdown-item" href="#">Notif 1</a></li>
-          <li><a class="dropdown-item" href="#">Notif 2</a></li>
+          <li><a class="dropdown-item disabled" href="#">Notification 1</a></li>
+          <li><a class="dropdown-item disabled" href="#">Notification 2</a></li>
         </ul>
       </li>
     </ul>
@@ -127,7 +126,7 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
           <li><span class="dropdown-item-text">Profile </span></li>
-          <li><a class="dropdown-item" href="#">My Account</a></li>
+          <li><a class="dropdown-item disabled" href="#">My Account</a></li>
           <li><a class="dropdown-item" href="#">Sign Out</a></li>
         </ul>
       </li>
@@ -146,12 +145,13 @@
 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
 </svg>
         </a>
-        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-          <li><span class="dropdown-item-text">Enable Dark Theme</span></li>
-          <li><a class="dropdown-item" href="#">Language: Switch to </a></li>
-          <li><a class="dropdown-item" href="#">Accesibility Mode: </a></li>
+        <ul class="dropdown-menu dropdown-menu-light dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
+          <li><span class="dropdown-item-text">Menu</span></li>
+          <li><a class="dropdown-item disabled" href="#">Enable Dark Mode</a></li>
+          <li><a class="dropdown-item disabled" href="#">Language: English </a></li>
+          <li><a class="dropdown-item disabled" href="#">Accesibility Mode: </a></li>
           <div class="dropdown-divider"></div>
-          <li class="dropdown-item" href="#">Send Feedback</li>
+          <li class="dropdown-item disabled" href="#">Send Feedback</li>
         </ul>
       </li>
     </ul>
@@ -206,10 +206,10 @@ font-size: larger;
 font-weight: bolder;
 }
 .container-fluid {
-padding-left: 3rem;
+padding-left: 2rem !important;
 }
 .right {
-padding-right: 4rem;
+padding-right: 1rem;
 }
 .right .navbar-collapse {
 padding-right: 1.5rem;
@@ -249,8 +249,8 @@ display: flex;
 align-items: center;
 }
 .dropdown img {
-height: 3rem;
-border: 2px solid black;
+height: 2.5rem;
+border: 1px solid black;
 border-radius: 50%;
 background-color: white;
 }

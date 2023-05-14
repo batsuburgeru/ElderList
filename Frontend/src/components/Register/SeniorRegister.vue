@@ -198,6 +198,7 @@ export default {
 
     console.log(response.data);
     alert('Form Submitted Successfully!');
+    window.location.href ='./Login/UserLogin.vue';
   } catch (error) {
     console.error(error);
     alert('An error occurred while submitting the form.');

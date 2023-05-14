@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
-
+const path = require('path');
 require('dotenv').config({path:'./.env'});
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
+dotenv.config();
+app.use(cookieParser());
 
 const cors = require('cors');
 app.use(cors({
@@ -12,7 +16,6 @@ app.use(cors({
     credentials: true,
     secure: true
 }));
-
 
 const auth = require('./routes/api/auth.js');
 const office = require('./routes/api/office.js');

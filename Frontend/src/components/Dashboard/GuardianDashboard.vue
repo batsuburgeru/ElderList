@@ -31,6 +31,14 @@
           >
           <i class="bi bi-gear-fill"></i><span class="p-2">Settings</span>
           </a>
+
+          <a
+            class="list-group-item list-group-item-action py-3 ripple"
+            :class="{ active: activeButton === 'guardianHelp' }"
+            @click="activeButton = 'guardianHelp'"
+          >
+          <i class="bi bi-info-circle-fill"></i><span class="p-2">Help</span>
+          </a>
         </div>
       </div>
     </nav>
@@ -151,6 +159,7 @@
       <div v-if="activeButton === 'viewBooklet'"><GuardianBooklet/></div>
       <div v-if="activeButton === 'addSeniorCitizen'"><AddSeniorCitizen /></div>
       <div v-if="activeButton === 'guardianSettings'"><GuardianSettings/></div>
+      <div v-if="activeButton === 'guardianHelp'"><GuardianHelp/></div>
     </main>
     <!-- Main content -->
 </template>
@@ -159,11 +168,12 @@
 import GuardianBooklet from '../GuardianDashboardPages/GuardianBooklet.vue'
 import AddSeniorCitizen from '../GuardianDashboardPages/AddSeniorCitizen.vue'
 import GuardianSettings from '../GuardianDashboardPages/GuardianSettings.vue'
+import GuardianHelp from '../GuardianDashboardPages/GuardianHelp.vue';
 
 export default {
   name: 'MainNavigation',
   components: {
-    GuardianBooklet, AddSeniorCitizen, GuardianSettings
+    GuardianBooklet, AddSeniorCitizen, GuardianSettings, GuardianHelp
   },
   data() {
     return {
