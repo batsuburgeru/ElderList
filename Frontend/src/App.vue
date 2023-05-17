@@ -1,17 +1,15 @@
 <template>
-<SeniorRegister/>
-<OfficeDashboard/>
+  <div id="app">
+  <router-view></router-view>
+  </div>
 </template>
 
 <script>
 
-import OfficeDashboard from './components/Dashboard/OfficeDashboard.vue';
-import SeniorRegister from './components/Register/SeniorRegister.vue';
 
 export default {
   name: 'App',
-  components: { OfficeDashboard, SeniorRegister
-}}
+  }
 </script>
 
 <style>
