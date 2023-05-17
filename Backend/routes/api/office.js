@@ -38,7 +38,7 @@ const authenticate = (req, res, next) => {
 };
 
 
-router.get('/newlyRegistered', authenticate, async (req, res, next) => {
+router.get('/newlyRegistered', async (req, res, next) => {
   try {
     // Get senior citizen details from database
     const query = `SELECT seniorcitizen_tb.*
@@ -51,7 +51,23 @@ router.get('/newlyRegistered', authenticate, async (req, res, next) => {
         console.error(error);
         return next(error);
       }
-      res.status(200).json({ success: true, seniorDetails: results });
+      //res.status(200).json({ success: true, seniorDetails: results });
+      const seniorDetails = results.map((result) => ({
+          seniorId: result.seniorId,
+        accountId: result.accountId,
+        firstName: result.firstName,
+        middleName: result.middleName,
+        lastName: result.lastName,
+        contactNumber: result.contactNumber,
+        dateOfBirth: result.dateOfBirth,
+        address: result.address,
+        idNumber: result.idNumber,
+        dateOfIssue: result.dateOfIssue,
+        expirationDate: result.expirationDate,
+        seniorUpload: `http://localhost:5000/office/newlyRegisteredImg/${result.seniorUpload}`
+
+      }))
+      res.status(200).json(seniorDetails)
     });
   } catch (error) {
     console.error(error);
@@ -59,7 +75,17 @@ router.get('/newlyRegistered', authenticate, async (req, res, next) => {
   }
 });
 
-router.get('/seniorList', authenticate, async (req, res, next) => {
+router.get('/newlyRegisteredImg/:seniorUpload', async(req, res) => {
+  const seniorUpload = req.params.seniorUpload;
+
+  try {
+    res.sendFile (seniorUpload, {root: '././File Upload/ID Upload'});
+  } catch (error) {
+    res.status(500).json ({success: false, error: 'Internal Server Error'});
+  }
+})
+
+router.get('/seniorList', async (req, res, next) => {
   try {
     // Get senior citizen details from database
     const query = `SELECT seniorcitizen_tb.*
@@ -81,7 +107,7 @@ router.get('/seniorList', authenticate, async (req, res, next) => {
 });
 
 
-router.patch('/registrationAccept/:accountId', authenticate, async (req, res, next) => {
+router.patch('/registrationAccept/:accountId', async (req, res, next) => {
   const { accountId } = req.params;
   try {
     const result = await dbConn.query(`UPDATE account_tb SET status = ? WHERE accountId = ?`, ['confirmed', accountId]);
@@ -92,30 +118,20 @@ router.patch('/registrationAccept/:accountId', authenticate, async (req, res, ne
   }
 });
 
-router.delete('/registrationReject/:accountId', authenticate, async (req, res, next) => {
+router.delete('/registrationReject/:accountId', async (req, res, next) => {
   const { accountId } = req.params;
   try {
-    const dataToInsertQuery = 'SELECT firstName, lastName, middleName, contactNumber, dateOfBirth, address, idNumber, dateOfIssue, expirationDate, seniorUpload FROM seniorcitizen_tb WHERE accountId = ?';
+    const dataToInsertQuery = 'SELECT firstName, lastName, middleName, contactNumber, dateOfBirth, address, idNumber, dateOfIssue, expirationDate FROM seniorcitizen_tb WHERE accountId = ?';
     const dataToInsertValues = [accountId];
 
-    const imagePath = data[0].seniorUpload;
-
     // Step 2: Insert the data into dump_tb
-    const insertQuery = 'INSERT INTO dump_tb (firstName, lastName, middleName, contactNumber, dateOfBirth, address, idNumber, dateOfIssuance, dateOfExpiration, seniorUpload) ' + dataToInsertQuery;
+    const insertQuery = 'INSERT INTO dump_tb (firstName, lastName, middleName, contactNumber, dateOfBirth, address, idNumber, dateOfIssuance, dateOfExpiration) ' + dataToInsertQuery;
     await dbConn.query(insertQuery, dataToInsertValues);
 
     // Step 3: Delete the record from account_tb
     const deleteQuery = 'DELETE FROM account_tb WHERE accountId = ?';
     await dbConn.query(deleteQuery, [accountId]);
 
-    if (imagePath) {
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-        console.log('Image file deleted');
-      });
-    }
     res.json({ message: 'Account rejected' });
   } catch (error) {
     console.error(error);

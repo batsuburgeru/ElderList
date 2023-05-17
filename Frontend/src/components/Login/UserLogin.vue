@@ -111,13 +111,13 @@
             // Redirect to the dashboard
             switch (data.role) {
               case 'seniorCitizen':
-                this.$router.push('/seniorDashboard');
+                this.$router.push('./Dashboard/SeniorDashboard.vue');
                 break;
               case 'guardian':
-                this.$router.push('/guardianDashboard');
+                this.$router.push('./Dashboard/Guardianboard.vue');
                 break;
               case 'admin':
-                this.$router.push('/adminDashboard');
+                this.$router.push('./Dashboard/OfficeDashboard.vue');
                 break;
               default:
                 console.error('Invalid role:', data.role);

@@ -28,7 +28,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
   <ul class="navbar-nav">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="nav-link dropdown-toggle pt-1" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         My Guardians
       </a>
       <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -167,9 +167,9 @@
       <div class="modal-body">
         <div class="mb-3">
           <label for="guardianNameInput" class="form-label">Generate One-Time Invite Code</label>
-          <input type="text" class="form-control" id="guardianNameInput" readonly>
+          <input type="text" class="form-control" id="guardianNameInput" v-model="randomCode" readonly>
         </div>
-        <button type="button" class="btn btn-primary" onclick="addGuardian()">Generate</button>
+        <button type="button" class="btn btn-primary" @click=generateCode()>Generate</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -185,7 +185,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      bookletDetails: []
+      bookletDetails: [],
+      randomCode: ''
     }
   },
 
@@ -209,6 +210,18 @@ export default {
     // Parse the JSON string to convert it into an array of objects
     return JSON.parse(purchasedItems);
   },
+  generateCode() {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const codeLength = 11;
+      let code = '';
+
+      for (let i = 0; i < codeLength; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        code += characters.charAt(randomIndex);
+      }
+
+      this.randomCode = code;
+    }
   },
 
   async mounted() {

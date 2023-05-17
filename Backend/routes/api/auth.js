@@ -11,11 +11,20 @@ const storage = multer.diskStorage({
       cb(null, 'File Upload/ID Upload/'); // Directory where uploaded files will be stored
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      const fileExtension = path.extname(file.originalname);
-      cb(null, file.fieldname + '-' + uniqueSuffix + fileExtension);
-    }
+      cb(null, Date.now() + '-' + file.originalname)
+
+      //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      // const fileExtension = path.extname(file.originalname);
+     // cb(null, file.fieldname + '-' + uniqueSuffix + fileExtension);
+    },
   });
+  const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWtith('image/')) {
+      cb( nullt, true)
+    } else {
+      cb(new Error('File Type not Supported'), false)
+    }
+  };
 
   const upload = multer({ storage: storage });
 
@@ -46,10 +55,8 @@ const storage = multer.diskStorage({
           console.error(error);
           return next(error);
         }
-  
         const accountId = results.insertId;
-  
-        const filePath = req.file.path;
+        const filePath = req.file.filename;
   
         // Insert user's basic info into seniorcitizen_tb with accountId as foreign key
         const seniorQuery = `INSERT INTO seniorcitizen_tb (accountId, firstName, middleName, lastName, contactNumber, dateOfBirth, address, idNumber, dateOfIssue, expirationDate, seniorUpload) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
