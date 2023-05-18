@@ -166,28 +166,47 @@
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label for="guardianNameInput" class="form-label">Generate One-Time Invite Code</label>
-          <input type="text" class="form-control" id="guardianNameInput" v-model="randomCode" readonly>
+          <label for="generateCode" class="form-label">Generate One-Time Invite Code</label>
+          <input type="text" class="form-control" id="generateCode" v-model="randomCode" readonly>
         </div>
         <button type="button" class="btn btn-primary" @click=generateCode()>Generate</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" onclick="done()">Done</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" @click=done()>Done</button>
       </div>
     </div>
   </div>
 </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+
+function getCookieValue(cookieName) {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split('; ');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split('=');
+    const name = cookie[0].trim();
+    const value = cookie[1];
+
+    if (name === cookieName) {
+      return value;
+    }
+  }
+
+  return null;
+}
 
 export default {
   data() {
     return {
       bookletDetails: [],
-      randomCode: ''
-    }
+      randomCode: '',
+      codeExpiration: null
+    };
   },
 
   methods: {
@@ -207,12 +226,13 @@ export default {
       return remainingBalance;
     },
     parsePurchasedItems(purchasedItems) {
-    // Parse the JSON string to convert it into an array of objects
-    return JSON.parse(purchasedItems);
-  },
-  generateCode() {
+      // Parse the JSON string to convert it into an array of objects
+      return JSON.parse(purchasedItems);
+    },
+    generateCode() {
       const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       const codeLength = 11;
+      const expirationTimeInMinutes = 10;
       let code = '';
 
       for (let i = 0; i < codeLength; i++) {
@@ -221,26 +241,51 @@ export default {
       }
 
       this.randomCode = code;
+      const currentTimestamp = new Date().getTime();
+      const expirationTimestamp = currentTimestamp + expirationTimeInMinutes * 60 * 1000;
+      const expirationDate = new Date(expirationTimestamp);
+      this.codeExpiration = expirationDate.toISOString(); // Convert to ISO 8601 datetime string
+    },
+    done() {
+      // Decode the token to extract the accountId
+      const token = getCookieValue('token');
+      const decodedToken = jwt_decode(token);
+      const accountId = decodedToken.data.accountId;
+
+      const relationshipCode = this.randomCode; // Placeholder for relationshipCode
+      const codeExpiration = this.codeExpiration; // Placeholder for codeExpiration
+
+      axios.post(`senior/inputCode/${accountId}`, {
+          relationshipCode,
+          codeExpiration
+        })
+        .then(response => {
+          console.log(response.data);
+          // Handle the response data
+        })
+        .catch(error => {
+          console.error(error);
+          // Handle the error
+        });
     }
   },
 
   async mounted() {
-  try {
-    const response = await axios.get('http://localhost:5000/senior/bookletRender');
-    this.bookletDetails = response.data.bookletDetails.map((booklet) => {
-      return {
-        ...booklet,
-        purchasedItems: this.parsePurchasedItems(booklet.purchasedItems),
-      };
-    });
-    console.log(this.bookletDetails);
-    // Do something with the bookletDetails data here
-  } catch (error) {
-    console.error(error);
+    try {
+      const response = await axios.get('http://localhost:5000/senior/bookletRender');
+      this.bookletDetails = response.data.bookletDetails.map((booklet) => {
+        return {
+          ...booklet,
+          purchasedItems: this.parsePurchasedItems(booklet.purchasedItems),
+        };
+      });
+      console.log(this.bookletDetails);
+      // Do something with the bookletDetails data here
+    } catch (error) {
+      console.error(error);
+    }
   }
-}};
-
-
+};
 </script>
 
 <style scoped>

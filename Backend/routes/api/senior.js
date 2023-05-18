@@ -60,4 +60,44 @@ router.get('/bookletRender/:seniorId', authenticate, async (req, res, next) => {
   }
 });
 
+router.post('/inputCode/:accountId', async (req, res, next) => {
+  const relationshipCode = req.body.relationshipCode;
+  const codeExpiration = req.body.codeExpiration;
+  const accountId = req.params.accountId;
+
+  try {
+    // Query the database to retrieve the seniorId associated with the accountId
+    const seniorIdQuery = `SELECT seniorId FROM seniorcitizen_tb WHERE accountId = ?`;
+    const seniorIdValues = [accountId];
+    dbConn.query(seniorIdQuery, seniorIdValues, function (error, seniorIdResult, fields) {
+      if (error) {
+        console.error(error);
+        return next(error);
+      }
+
+      if (seniorIdResult.length === 0) {
+        // No seniorId found for the given accountId
+        return res.status(404).json({ success: false, message: 'Senior not found' });
+      }
+
+      const seniorId = seniorIdResult[0].seniorId;
+
+      // Proceed with the query
+      const relationshipQuery = `INSERT INTO relationship_tb (seniorId, relationshipCode, codeExpiration) VALUES (?, ?, ?)`;
+      const relationshipValues = [seniorId, relationshipCode, codeExpiration];
+      dbConn.query(relationshipQuery, relationshipValues, function (error, relationshipResult, fields) {
+        if (error) {
+          console.error(error);
+          return next(error);
+        }
+
+        const relationshipId = relationshipResult.insertId; // Get the inserted relationshipId
+        res.status(200).json({ success: true, relationshipId: relationshipId });
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+});
   module.exports = router;

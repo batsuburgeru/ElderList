@@ -1,0 +1,5 @@
+"referenceId","seniorId","storeName","dateOfPurchase","totalPrice","discountAmount","purchasedItems"
+"sdf3safasd6s5","00000000084","Store 3","2023-05-18T16:01:41.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
+"sdf356s5","00000000084","Store 2","2023-05-18T15:52:09.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
+"asasdasg","00000000084","Store 1","2023-05-18T15:51:58.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
+"dsfsd","00000000084","Store 1","2023-05-18T15:51:53.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"

@@ -125,56 +125,93 @@ const storage = multer.diskStorage({
     }
   });
 
-router.post('/login', (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  router.post('/officeSignup', async (req, res, next) => {
+    var email = req.body.email;
+    var password = req.body.password;
+    var role = 'admin';
+    var status = 'confirmed';
+  
+    try {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Insert user's account credentials into account_tb
+      const accountQuery = `INSERT INTO account_tb (email, password, role, status) VALUES (?, ?, ?, ?)`;
+      const accountValues = [email, hashedPassword, role, status];
+      const accountResult = await dbConn.query(accountQuery, accountValues, function(error, results, fields) {
+        if (error) {
+          console.error(error);
+          return next(error);
+        }
+          res.status(200).json({ success: true, accountId: results.accountId });
+      });
+    } catch (error) {
+      console.error(error);
+      return next(error);
+    }
+  });
 
-  try {
-    const sqlQuery = `SELECT * FROM account_tb WHERE email = ?`;
-    const sqlValues = [email];
-
-    dbConn.query(sqlQuery, sqlValues, async function(error, results) {
-      if (error) {
-        console.error(error);
-        return next(error);
-      }
-
-      if (results.length === 0) {
-        // Invalid credentials
-        return res.status(401).json({ success: false, message: 'Invalid email or password' });
-      }
-
-      const user = results[0];
-      const hashedPassword = user.password;
-
-      // Compare the hashed password
-      const isPasswordMatch = await bcrypt.compare(password, hashedPassword);
-
-      if (!isPasswordMatch) {
-        // Invalid credentials
-        return res.status(401).json({ success: false, message: 'Invalid email or password' });
-      }
-
-      // Check the account status
-      if (user.status !== 'confirmed') {
-        // Account is not confirmed
-        return res.status(401).json({ success: false, message: 'Account not confirmed' });
-      }
-
-      // User authenticated and account is confirmed, generate token
-      const data = {
-        accountId: user.accountId,
-        email: user.email,
-        role: user.role,
-      };
-      const token = jwt.sign({ data }, process.env.SECRET_TOKEN, { expiresIn: '1h' });
-
-      res.status(200).json({ success: true, token: token });
-    });
-  } catch (error) {
-    console.error(error);
-    return next(error);
-  }
-});
-
+  router.post('/login', (req, res, next) => {
+    const email = req.body.email;
+    const password = req.body.password;
+  
+    try {
+      const sqlQuery = `SELECT * FROM account_tb WHERE email = ?`;
+      const sqlValues = [email];
+  
+      dbConn.query(sqlQuery, sqlValues, async function(error, results) {
+        if (error) {
+          console.error(error);
+          return next(error);
+        }
+  
+        if (results.length === 0) {
+          // Invalid credentials
+          return res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+  
+        const user = results[0];
+        const hashedPassword = user.password;
+  
+        // Compare the hashed password
+        const isPasswordMatch = await bcrypt.compare(password, hashedPassword);
+  
+        if (!isPasswordMatch) {
+          // Invalid credentials
+          return res.status(401).json({ success: false, message: 'Invalid email or password' });
+        }
+  
+        // Check the account status
+        if (user.status !== 'confirmed') {
+          // Account is not confirmed
+          return res.status(401).json({ success: false, message: 'Account not confirmed' });
+        }
+  
+        // User authenticated and account is confirmed, generate token
+        const data = {
+          accountId: user.accountId,
+          email: user.email,
+          role: user.role,
+          status: user.status
+        };
+        const token = jwt.sign({ data }, process.env.SECRET_KEY, { expiresIn: '1h' });
+  
+        // Decode the token to extract the role
+        const decodedToken = jwt.decode(token);
+  
+        // Include the role in the response data
+        const responseData = {
+          success: true,
+          token: token,
+          role: decodedToken.data.role,
+          accountId: decodedToken.data.accountId
+        };
+  
+        res.status(200).json(responseData);
+      });
+    } catch (error) {
+      console.error(error);
+      return next(error);
+    }
+  });
 module.exports = router;

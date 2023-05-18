@@ -15,10 +15,65 @@
       <button class="btn btn-primary">Download CSV</button>
       <hr />
     </div>
+
+    <section class="mx-5">
+  <table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr class="column-title">
+      <th>Senior ID</th>
+      <th>Name</th>
+      <th>Senior Citizen ID Number</th>
+      <th>Date of Last Purchase</th>
+      <th>Total Amount Spent</th>
+      <th>Frequently Bought Item</th>
+      <th>Stores Visited</th>
+      <th>Total Discount Availed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(senior, index) in seniorDetails" :key="index">
+          <td>{{ senior.accountId }}</td>
+          <td>{{ fullName(senior) }}</td>
+          <td>{{ senior.contactNumber }}</td>
+          <td>{{ new Date(senior.dateOfBirth).toLocaleDateString() }}</td>
+          <td>{{ senior.address }}</td>
+          <td>{{ senior.idNumber }}</td>
+          <td>{{ new Date(senior.dateOfIssue).toLocaleDateString() }}</td>
+          <td>{{ new Date(senior.expirationDate).toLocaleDateString() }}</td>
+      </tr>
+  </tbody>
+</table>
+    </section>
   </template>
 
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      previewData: [],
+    };
+  },
+  mounted() {
+    this.generatePreview();
+  },
+  methods: {
+    async generatePreview() {
+      try {
+        const response = await axios.get('office/excel-preview');
+        this.previewData = response.data;
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while generating the Excel preview.');
+      }
+    },
+  },
+};
+</script>
+
 <style scoped>
-    .container {
+.container {
       align-items: flex-start;
       flex-direction: column;
       padding-left: 1rem !important;

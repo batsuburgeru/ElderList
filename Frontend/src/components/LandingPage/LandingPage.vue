@@ -3,8 +3,8 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
     <div class="container">
-        <a href="#!" class="navbar-brand"><img src="../../assets/img/elderlist-logo.png" alt="ElderList Logo"></a>
-      <a class="navbar-brand" href="#!"><span style="color: #89CFF1;">Elder</span><span style="color: #fff;">List</span></a>
+        <a href="#" class="navbar-brand"><img src="../../assets/img/elderlist-logo.png" alt="ElderList Logo"></a>
+      <a class="navbar-brand" href="#"><span style="color: #89CFF1;">Elder</span><span style="color: #fff;">List</span></a>
       <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
         data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -13,27 +13,27 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#about-us">About Us</a>
+            <a class="nav-link" style="color: #4f4f4f; font-size: large;" href="#about-us">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about-us">How to Use</a>
+            <a class="nav-link" style="color: #4f4f4f; font-size: large;" href="#about-us">How to Use</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#team">Team</a>
+            <a class="nav-link" style="color: #4f4f4f; font-size: large;" href="#team">Team</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
+            <a class="nav-link" style="color: #4f4f4f; font-size: large;" href="#contact">Contact</a>
           </li>
         </ul>
         <ul class="navbar-nav d-flex flex-row">
           <li class="nav-item me-3 me-lg-0">
-            <router-link class="nav-link" to="/SeniorRegister">Register as Senior</router-link>
+            <router-link class="nav-link" to="/SeniorRegister" style="color: #4f4f4f; font-size: large;">Register as Senior</router-link>
           </li>
           <li class="nav-item me-3 me-lg-0">
-            <router-link class="nav-link" to="/GuardianRegister">Register as Guardian</router-link>
+            <router-link class="nav-link" to="/GuardianRegister" style="color: #4f4f4f; font-size: large;">Register as Guardian</router-link>
           </li>
           <li class="nav-item me-3 me-lg-0">
-            <router-link class="nav-link" to="/UserLogin">Login</router-link>
+            <router-link class="nav-link" to="/UserLogin" style="color: #4f4f4f; font-size: large;">Login</router-link>
           </li>
         </ul>
       </div>
@@ -62,7 +62,9 @@
     <div class="row align-items-center mb-5">
       <div class="col-lg-6 order-2 order-lg-1"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
         <h2 class="font-weight-light" style="color: black; font-weight: bold;">Hypex</h2>
-        <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#" class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+        <p class="font-italic text-muted mb-4">Hypex is a digital software development company dedicated to solving problems using digital 
+          tools. Our mission is to create innovative digital solutions that will improve the lives of people around the world.</p>
+          <a href="#team" class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
       </div>
       <div class="col-lg-5 px-5 mx-auto order-1 order-lg-2"><img src="../../assets/img/hypex-logo.png" alt="" class="img-fluid mb-4 mb-lg-0"></div>
     </div>
@@ -70,7 +72,9 @@
       <div class="col-lg-5 px-5 mx-auto"><img src="../../assets/img/elderlist-laptop.png" alt="" class="img-fluid mb-4 mb-lg-0"></div>
       <div class="col-lg-6"><i class="fa fa-bar-chart fa-2x mb-3 text-primary"></i>
         <h2 class="font-weight-light" style="color: black; font-weight: bold;">ElderList</h2>
-        <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p><a href="#" class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
+        <p class="font-italic text-muted mb-4">To start using ElderList, just create your account using the Register button either as a senior citizen or a guardian 
+          for a senior citizen. Once your account and identity has been verified, you can start using ElderList as your digital booklet for all your discounted purchases.
+        </p><a href="#contact" class="btn btn-light px-5 rounded-pill shadow-sm">Learn More</a>
       </div>
     </div>
   </div>
@@ -83,7 +87,7 @@
       <div class="row justify-content-center text-center">
         <div class="col-lg-5">
           <h2 class="display-4 font-weight-light" style="color: black; font-weight: bold;">Our team</h2>
-          <p class="font-italic text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p class="font-italic text-muted">Meet the people behind ElderList.</p>
         </div>
       </div>
 
@@ -240,15 +244,15 @@
     <div class="col-md-3 text-center">
         <ul class="list-unstyled mb-0">
             <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                <p>San Francisco, CA 94126, USA</p>
+                <p>363 Pascual Casal St, Quiapo, Manila, 1001 Metro Manila</p>
             </li>
 
             <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                <p>+ 01 234 567 89</p>
+                <p>(+632) 8733-9117</p>
             </li>
 
             <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                <p>contact@mdbootstrap.com</p>
+                <p>info@tip.edu.ph</p>
             </li>
         </ul>
     </div>

@@ -1,14 +1,8 @@
 <template>
   <MDBNavbar class="navbar-container" container>
-    <MDBNavbarBrand href="#">
-      <img
-        src="https://scontent.xx.fbcdn.net/v/t1.15752-9/337547182_1615796548898197_278838999557713844_n.png?stp=dst-png_p1080x2048&_nc_cat=105&ccb=1-7&_nc_sid=aee45a&_nc_eui2=AeH_E5_Hamjewj9RxJui337QuEVhLjntFIW4RWEuOe0UhWwQk28SCzqJWfzh_EFibnX1gf1_cLXJgddRJGvkiKT4&_nc_ohc=whWKgZr5o0sAX9cHnX3&_nc_ht=scontent.xx&oh=03_AdT8fAXifIkbfc16SlBl83wwDllDvYgkAyQWLbVt_yL03A&oe=644F9EE2"
-        height="35"
-        alt=""
-        loading="lazy"
-      />
+    <router-link to="/" style="font-size: x-large;">
       ElderList
-    </MDBNavbarBrand>
+    </router-link>
   </MDBNavbar>
 
   <section class="vh-100 gradient-custom">
@@ -58,21 +52,23 @@
 </section> 
 </template>
 <script>
-  import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
-  import { MDBCheckbox } from "mdb-vue-ui-kit";
   import { ref, onMounted } from "vue";
+  import { MDBNavbar } from 'mdb-vue-ui-kit';
+  import { MDBCheckbox } from "mdb-vue-ui-kit";
+  import { useRouter } from 'vue-router';
 
   export default {
     components: {
       MDBCheckbox,
       MDBNavbar,
-      MDBNavbarBrand,
     },
     setup() {
       const email = ref('');
       const password = ref('');
+      const role = ref('');
       const checkbox2 = ref(false);
       const showPassword = ref(false);
+      const router = useRouter();
 
       const toggleShow = () => {
         showPassword.value = !showPassword.value;
@@ -102,29 +98,19 @@
           const data = await response.json();
           if (response.ok) {
             console.log('Login successful:', data);
-            email.value = '';
-            password.value = '';
-
-            // Store the token as a cookie
             document.cookie = `token=${data.token}; expires=${new Date(data.expiresIn)}`;
-
-            // Redirect to the dashboard
-            switch (data.role) {
-              case 'seniorCitizen':
-                this.$router.push('./Dashboard/SeniorDashboard.vue');
-                break;
-              case 'guardian':
-                this.$router.push('./Dashboard/Guardianboard.vue');
-                break;
-              case 'admin':
-                this.$router.push('./Dashboard/OfficeDashboard.vue');
-                break;
-              default:
-                console.error('Invalid role:', data.role);
-                break;
+      
+            // Redirect to appropriate component based on role
+            if (data.role === 'seniorCitizen') {
+              router.push({ name: 'SeniorDashboard'});
+            } else if (data.role === 'guardian') {
+              router.push({ name: 'GuardianDashboard' });
+            } else if (data.role === 'admin') {
+              router.push({ name: 'OfficeDashboard' });
             }
           } else {
             console.error('Login failed:', data);
+            alert('Login failed:' + data.message);
           }
         } catch (error) {
           console.error('Login failed:', error.message);
@@ -138,6 +124,7 @@
       return {
         email,
         password,
+        role,
         checkbox2,
         saveRememberMePreference,
         showPassword,

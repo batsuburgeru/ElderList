@@ -3,6 +3,11 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 var dbConn = require('../../config/db');
 const cookieParser = require('cookie-parser');
+const { Parser } = require('json2csv');
+const mysql = require('mysql');
+const fs = require('fs');
+const xlsx = require('xlsx');
+const path = require('path');
 
 const authenticate = (req, res, next) => {
   const authToken = req.cookies.authToken; // Assuming the token is stored in a cookie named "authToken"
@@ -136,6 +141,80 @@ router.delete('/registrationReject/:accountId', async (req, res, next) => {
   } catch (error) {
     console.error(error);
     next(error);
+  }
+});
+
+router.get('/export-excel', (req, res) => {
+  const query = 'SELECT * FROM seniorbooklet_tb ORDER BY dateOfPurchase DESC'; // Add ORDER BY clause to sort by dateOfPurchase in descending order
+  try {
+    dbConn.query(query, (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to export the database to Excel.' });
+      } else {
+        if (results.length === 0) {
+          res.status(400).json({ error: 'No data found in the database.' });
+          return;
+        }
+
+        // Define the file paths
+        const csvFilePath = path.join(__dirname, '../..', 'dataset', 'database.csv');
+        const excelFilePath = path.join(__dirname, '../..', 'dataset', 'database.xlsx');
+
+        // Convert the data to CSV format using json2csv
+        const json2csvParser = new Parser({ fields: Object.keys(results[0]) });
+        const csvData = json2csvParser.parse(results);
+
+        // Write the CSV data to a file
+        fs.writeFileSync(csvFilePath, csvData);
+
+        // Load the CSV file into a workbook using xlsx
+        const workbook = xlsx.readFile(csvFilePath);
+
+        // Save the workbook as an Excel file
+        xlsx.writeFile(workbook, excelFilePath, { bookType: 'xlsx' });
+
+        // Set the appropriate response headers for file download
+        res.setHeader('Content-Disposition', 'attachment; filename="database.xlsx"');
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.sendFile(excelFilePath);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to export the database to Excel.' });
+  }
+});
+
+router.get('/excel-preview', (req, res) => {
+  const excelFilePath = path.join(__dirname, '../..', 'dataset', 'database.xlsx');
+
+  // Read the Excel file
+  const workbook = xlsx.readFile(excelFilePath);
+
+  // Get the first sheet name
+  const sheetName = workbook.SheetNames[0];
+
+  // Convert the first sheet to HTML format
+  const htmlData = xlsx.utils.sheet_to_html(workbook.Sheets[sheetName]);
+
+  // Set the appropriate response headers for the HTML preview
+  res.setHeader('Content-Type', 'text/html');
+  res.send(htmlData);
+});
+
+router.get('/officeAnalytics', async (req, res, next) => {
+  try {
+    const bookletQuery = 'SELECT * FROM seniorbooklet_tb';
+    const seniorQuery = 'SELECT * FROM seniorcitizen_tb';
+
+    const bookletResult = await dbConn.query(bookletQuery);
+    const seniorResult = await dbConn.query(seniorQuery);
+
+    res.status(200).json({ success: true, bookletAnalytics: bookletResult, seniorAnalytics: seniorResult });
+  } catch (error) {
+    console.error(error);
+    return next(error);
   }
 });
 

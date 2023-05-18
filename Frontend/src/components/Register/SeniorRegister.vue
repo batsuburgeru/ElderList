@@ -1,14 +1,8 @@
 <template>
     <MDBNavbar class="navbar-container" container>
-        <MDBNavbarBrand href="#">
-            <img
-                src="https://scontent.xx.fbcdn.net/v/t1.15752-9/337547182_1615796548898197_278838999557713844_n.png?stp=dst-png_p1080x2048&_nc_cat=105&ccb=1-7&_nc_sid=aee45a&_nc_eui2=AeH_E5_Hamjewj9RxJui337QuEVhLjntFIW4RWEuOe0UhWwQk28SCzqJWfzh_EFibnX1gf1_cLXJgddRJGvkiKT4&_nc_ohc=whWKgZr5o0sAX9cHnX3&_nc_ht=scontent.xx&oh=03_AdT8fAXifIkbfc16SlBl83wwDllDvYgkAyQWLbVt_yL03A&oe=644F9EE2"
-                height="35"
-                alt=""
-                loading="lazy"
-            />
+        <router-link to="/" style="font-size: x-large;">
       ElderList
-    </MDBNavbarBrand>
+        </router-link>
   </MDBNavbar>
 
   <section class="vh-100 gradient-custom">
@@ -143,13 +137,12 @@
 
 <script>
 import axios from 'axios';
-import { MDBNavbar, MDBNavbarBrand } from 'mdb-vue-ui-kit';
+import { MDBNavbar} from 'mdb-vue-ui-kit';
 
 export default {
     components: {
-      MDBNavbar,MDBNavbarBrand,
+      MDBNavbar
     },
-    
     data() {
       return {
         firstName: '',
@@ -195,10 +188,9 @@ export default {
         'Content-Type': 'multipart/form-data'
       }
     });
-
     console.log(response.data);
     alert('Form Submitted Successfully!');
-    window.location.href ='./Login/UserLogin.vue';
+    this.$router.push({ name: 'UserLogin'});
   } catch (error) {
     console.error(error);
     alert('An error occurred while submitting the form.');

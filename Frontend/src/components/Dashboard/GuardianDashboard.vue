@@ -183,11 +183,7 @@ export default {
 };
 </script>
 
-<style>
-main {
-    padding-top: 7vh;
-    padding-left: 240px;
-}
+<style scoped>
 .navbar {
 height: 7vh;
 }

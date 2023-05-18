@@ -11,6 +11,9 @@ import LandingPage from './components/LandingPage/LandingPage.vue'
 import SeniorRegister from './components/Register/SeniorRegister.vue';
 import GuardianRegister from './components/Register/GuardianRegister.vue'
 import UserLogin from './components/Login/UserLogin.vue'
+import SeniorDashboad from './components/Dashboard/SeniorDashboard.vue'
+import GuardianDashboard from './components/Dashboard/GuardianDashboard.vue'
+import OfficeDashboard from './components/Dashboard/OfficeDashboard.vue'
 
 
 
@@ -32,6 +35,18 @@ const router = createRouter({
     { path: '/UserLogin',
     name: 'UserLogin', 
     component: UserLogin
+    },
+    { path: '/SeniorDashboard',
+    name: 'SeniorDashboard', 
+    component: SeniorDashboad
+    },
+    { path: '/GuardianDashboard',
+    name: 'GuardianDashboard', 
+    component: GuardianDashboard
+    },
+    { path: '/OfficeDashboard',
+    name: 'OfficeDashboard', 
+    component: OfficeDashboard
     },
   ]
 });
