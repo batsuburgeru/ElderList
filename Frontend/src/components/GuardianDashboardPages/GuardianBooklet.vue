@@ -52,6 +52,24 @@
 
 <script>
 import axios from 'axios'
+import jwt_decode from 'jwt-decode';
+
+function getCookieValue(cookieName) {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split('; ');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split('=');
+    const name = cookie[0].trim();
+    const value = cookie[1];
+
+    if (name === cookieName) {
+      return value;
+    }
+  }
+
+  return null;
+}
 
 export default {
   data() {
@@ -84,7 +102,11 @@ export default {
 
   async mounted() {
   try {
-    const response = await axios.get('http://localhost:5000/senior/bookletRender');
+    const token = getCookieValue('token');
+    const decodedToken = jwt_decode(token);
+    const accountId = decodedToken.data.accountId;
+
+    const response = await axios.get(`http://localhost:5000/guardianBooklet/${accountId}`);
     this.bookletDetails = response.data.bookletDetails.map((booklet) => {
       return {
         ...booklet,
@@ -96,6 +118,7 @@ export default {
   } catch (error) {
     console.error(error);
   }
+
 }};
 </script>
 

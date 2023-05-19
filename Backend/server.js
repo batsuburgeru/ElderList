@@ -21,6 +21,7 @@ const auth = require('./routes/api/auth.js');
 const office = require('./routes/api/office.js');
 const store = require('./routes/api/store.js');
 const senior = require('./routes/api/senior.js');
+const guardian = require('./routes/api/guardian.js');
 
 // init Middleware
 app.use(express.json({ extended: false }));
@@ -30,6 +31,7 @@ app.use('/auth', auth);
 app.use('/office', office);
 app.use('/store/', store);
 app.use('/senior', senior);
+app.use('/guardian', guardian);
 
 const PORT = process.env.PORT || 5000;
 

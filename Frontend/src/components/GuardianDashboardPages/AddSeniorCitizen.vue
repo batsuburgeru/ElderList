@@ -14,10 +14,10 @@
   <div>
     <div class="row">
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="codeInput" >
+      <input type="text" class="form-control" id="codeInput" v-model="randomCode">
     </div>
     <div class="col-sm-1">
-      <button class="btn btn-primary" onclick="confirmCode()">Confirm</button>
+      <button class="btn btn-primary" @click=confirmCode()>Confirm</button>
     </div>
   </div>
   <p class="pt-3">Enter the One-Time Invite Code generated from your Senior Citizen’s Account to add them to your list of Senior Citizens.</p>
@@ -26,6 +26,60 @@
 </main>
 </template>
 
+<script>
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+
+function getCookieValue(cookieName) {
+  const cookieString = document.cookie;
+  const cookies = cookieString.split('; ');
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split('=');
+    const name = cookie[0].trim();
+    const value = cookie[1];
+
+    if (name === cookieName) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+export default {
+  data() {
+    return {
+      randomCode: ''
+    };
+  },
+
+  methods: {
+    confirmCode() {
+      // Decode the token to extract the accountId
+      const token = getCookieValue('token');
+      const decodedToken = jwt_decode(token);
+      const accountId = decodedToken.data.accountId;
+
+      const relationshipCode = this.randomCode; // Placeholder for relationshipCode
+
+      axios.post(`guardian/inputCodeValidation/${accountId}`, {
+          relationshipCode
+        })
+        .then(response => {
+          console.log(response.data);
+          alert('Matched Confirmed!')
+
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Incorrect Code. Try again.')
+
+        });
+    }
+  },
+};
+</script>
 
 <style scoped>
 main {
