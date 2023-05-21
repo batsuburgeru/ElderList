@@ -9,10 +9,10 @@
 
     <main>
       <section class="vh-100 gradient-custom">
-  <table class="table table-striped table-hover table-bordered">
+        <table class="table table-striped table-hover table-bordered">
     <thead>
       <tr class="title">
-        <th colspan="4"><span>SeniorName</span></th>
+        <th colspan="4">My Booklet</th>
         <th colspan="1">Remaining Balance: {{ calculateRemainingLimit(bookletDetails) }}</th>
       </tr>
       <tr class="column-title">
@@ -28,8 +28,8 @@
         <td>{{ booklet.referenceId }}</td>
         <td>{{ new Date(booklet.dateOfPurchase).toLocaleDateString() }}</td>
         <td>
-          <table class="table table-borderless table-hover">
-            <tr class="nested-column-title ">
+          <table class="table-borderless">
+            <tr class="nested-column-title">
               <th>Item Name</th>
               <th>Quantity</th>
               <th>Price / Unit</th>
@@ -106,7 +106,7 @@ export default {
     const decodedToken = jwt_decode(token);
     const accountId = decodedToken.data.accountId;
 
-    const response = await axios.get(`http://localhost:5000/guardianBooklet/${accountId}`);
+    const response = await axios.get(`http://localhost:5000/guardian/guardianBooklet/${accountId}`);
     this.bookletDetails = response.data.bookletDetails.map((booklet) => {
       return {
         ...booklet,
@@ -123,6 +123,7 @@ export default {
 </script>
 
 <style scoped>
+
 .divider {
   border: none;
   border-top: 2px solid #ccc;

@@ -3,6 +3,39 @@ var router = express.Router();
 const jwt = require('jsonwebtoken');
 var dbConn = require('../../config/db');
 
+const authenticate = (req, res, next) => {
+  const authToken = req.cookies.authToken; // Assuming the token is stored in a cookie named "authToken"
+
+  if (!authToken) {
+    // Token is missing, authentication failed
+    return res.status(401).json({ success: false, message: 'Authentication failed' });
+  }
+
+  try {
+    // Verify and decode the token
+    const secretKey = process.env.SECRET_KEY; // Retrieve secret key from environment variable
+    const decoded = jwt.verify(authToken, secretKey);
+
+    // Check the expiration
+    if (decoded.exp < Date.now() / 1000) {
+      // Token is expired, authentication failed
+      return res.status(401).json({ success: false, message: 'Token expired' });
+    }
+
+    // Check the role
+    if (decoded.role !== 'store') { // Replace 'admin' with the role you want to allow access to
+      // Role is not authorized, authentication failed
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+
+    // Token is valid and user is authorized, proceed to the next middleware or route handler
+    next();
+  } catch (error) {
+    // Token verification failed, authentication failed
+    return res.status(401).json({ success: false, message: 'Authentication failed' });
+  }
+};
+
 router.post('/bookletInput/:seniorId', async (req, res, next) => {
   var referenceId = (req.body.referenceId);
   var seniorId = req.params.seniorId;

@@ -8,9 +8,10 @@ const mysql = require('mysql');
 const fs = require('fs');
 const xlsx = require('xlsx');
 const path = require('path');
+router.use(cookieParser());
 
 const authenticate = (req, res, next) => {
-  const authToken = req.cookies.authToken; // Assuming the token is stored in a cookie named "authToken"
+  const authToken = req.cookies.token; // Assuming the token is stored in a cookie named "token"
 
   if (!authToken) {
     // Token is missing, authentication failed
@@ -176,6 +177,55 @@ router.get('/export-excel', (req, res) => {
 
         // Set the appropriate response headers for file download
         res.setHeader('Content-Disposition', 'attachment; filename="database.xlsx"');
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.sendFile(excelFilePath);
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to export the database to Excel.' });
+  }
+});
+
+router.get('/export-users', (req, res) => {
+  const query = `
+  SELECT *
+  FROM seniorcitizen_tb AS s
+  INNER JOIN account_tb AS a ON s.accountID = a.accountID
+  WHERE a.status = 'confirmed'
+  ORDER BY a.dateOfCreation DESC
+`;
+  
+  try {
+    dbConn.query(query, (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to export the database to Excel.' });
+      } else {
+        if (results.length === 0) {
+          res.status(400).json({ error: 'No data found in the database.' });
+          return;
+        }
+
+        // Define the file paths
+        const csvFilePath = path.join(__dirname, '../..', 'dataset', 'database.csv');
+        const excelFilePath = path.join(__dirname, '../..', 'dataset', 'elderlist_users.xlsx');
+
+        // Convert the data to CSV format using json2csv
+        const json2csvParser = new Parser({ fields: Object.keys(results[0]) });
+        const csvData = json2csvParser.parse(results);
+
+        // Write the CSV data to a file
+        fs.writeFileSync(csvFilePath, csvData);
+
+        // Load the CSV file into a workbook using xlsx
+        const workbook = xlsx.readFile(csvFilePath);
+
+        // Save the workbook as an Excel file
+        xlsx.writeFile(workbook, excelFilePath, { bookType: 'xlsx' });
+
+        // Set the appropriate response headers for file download
+        res.setHeader('Content-Disposition', 'attachment; filename="elderlist_users.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.sendFile(excelFilePath);
       }

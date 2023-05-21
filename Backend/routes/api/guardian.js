@@ -23,7 +23,7 @@ const authenticate = (req, res, next) => {
       }
   
       // Check the role
-      if (decoded.role !== 'admin') { // Replace 'admin' with the role you want to allow access to
+      if (decoded.role !== 'guardian') { // Replace 'admin' with the role you want to allow access to
         // Role is not authorized, authentication failed
         return res.status(403).json({ success: false, message: 'Access denied' });
       }
@@ -57,8 +57,8 @@ router.post('/inputCodeValidation/:accountId', async (req, res, next) => {
         const guardianId = guardianIdResult[0].guardianId;
   
         // Query the database to validate the code
-        const validateQuery = `SELECT * FROM relationship_tb WHERE relationshipCode = ?`;
-        const validateValues = [relationshipCode];
+        const validateQuery = `SELECT * FROM relationship_tb WHERE relationshipCode = ? AND status = ?`;
+        const validateValues = [relationshipCode, 'pending'];
   
         dbConn.query(validateQuery, validateValues, function (error, results, fields) {
           if (error) {

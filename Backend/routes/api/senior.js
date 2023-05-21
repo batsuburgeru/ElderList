@@ -27,7 +27,7 @@ const authenticate = (req, res, next) => {
     }
 
     // Check the role
-    if (decoded.role !== 'admin') { // Replace 'admin' with the role you want to allow access to
+    if (decoded.role !== 'seniorCitizen') { // Replace 'admin' with the role you want to allow access to
       // Role is not authorized, authentication failed
       return res.status(403).json({ success: false, message: 'Access denied' });
     }
@@ -40,19 +40,39 @@ const authenticate = (req, res, next) => {
   }
 };
 
-router.get('/bookletRender/:seniorId', authenticate, async (req, res, next) => {
-  const { seniorId } = req.params;
+router.get('/bookletRender/:accountId', async (req, res, next) => {
+  const { accountId } = req.params;
+
   try {
-    // Get senior citizen details from database based on seniorId
-    const query = 'SELECT * FROM seniorbooklet_tb WHERE seniorId = ?';
-    const values = [seniorId];
-    const result = await dbConn.query(query, values, function (error, results, fields) {
+    // First query: Select seniorId from seniorcitizen_tb based on accountId
+    const selectSeniorIdQuery = 'SELECT seniorId FROM seniorcitizen_tb WHERE accountId = ?';
+    const selectSeniorIdValues = [accountId];
+
+    dbConn.query(selectSeniorIdQuery, selectSeniorIdValues, async (error, selectSeniorIdResult, fields) => {
       if (error) {
         console.error(error);
         return next(error);
       }
-      res.status(200).json({ success: true, bookletDetails: results });
-      console.log(results);
+
+      if (selectSeniorIdResult.length === 0) {
+        // No matching seniorId found for the given accountId
+        return res.status(404).json({ success: false, message: 'Senior citizen not found' });
+      }
+
+      const seniorId = selectSeniorIdResult[0].seniorId;
+
+      // Second query: Get senior booklet details from seniorbooklet_tb based on seniorId
+      const selectBookletQuery = 'SELECT * FROM seniorbooklet_tb WHERE seniorId = ?';
+      const selectBookletValues = [seniorId];
+
+      dbConn.query(selectBookletQuery, selectBookletValues, (error, selectBookletResult, fields) => {
+        if (error) {
+          console.error(error);
+          return next(error);
+        }
+
+        res.status(200).json({ success: true, bookletDetails: selectBookletResult });
+      });
     });
   } catch (error) {
     console.error(error);

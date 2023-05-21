@@ -1,71 +1,66 @@
 <template>
-    <div class="container pt-2 d-flex">
-      <h1>ElderList Dataset</h1>
-      <h2>About this dataset</h2>
-      <p>
-        This dataset contains senior citizen data gathered from their ElderList
-        usage.. It contains data such
-        as their name, the number of guardians they have registered, the number
-        of transactions they have made in the specific month or period, the
-        amount of money they have spent, and the amount of money they saved
-        through discounts. This data is only the raw data taken from ElderList's
-        databases. You may download the CSV file below for your perusal. All data
-        was collected according to the Data Privacy Act of 2012
-      </p>
-      <button class="btn btn-primary">Download CSV</button>
-      <hr />
+  <div class="container pt-2">
+    <div class="row">
+      <div class="col">
+        <h1>ElderList Dataset</h1>
+        <h2>About this dataset</h2>
+        <p>
+          This dataset contains senior citizen data gathered from their ElderList
+          usage.. It contains data such
+          as their name, the number of guardians they have registered, the number
+          of transactions they have made in the specific month or period, the
+          amount of money they have spent, and the amount of money they saved
+          through discounts. This data is only the raw data taken from ElderList's
+          databases. You may download the CSV file below for your perusal. All data
+          was collected according to the Data Privacy Act of 2012
+        </p>
+      </div>
     </div>
-
-    <section class="mx-5">
-  <table class="table table-striped table-hover table-bordered">
-  <thead>
-    <tr class="column-title">
-      <th>Senior ID</th>
-      <th>Name</th>
-      <th>Senior Citizen ID Number</th>
-      <th>Date of Last Purchase</th>
-      <th>Total Amount Spent</th>
-      <th>Frequently Bought Item</th>
-      <th>Stores Visited</th>
-      <th>Total Discount Availed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="(senior, index) in seniorDetails" :key="index">
-          <td>{{ senior.accountId }}</td>
-          <td>{{ fullName(senior) }}</td>
-          <td>{{ senior.contactNumber }}</td>
-          <td>{{ new Date(senior.dateOfBirth).toLocaleDateString() }}</td>
-          <td>{{ senior.address }}</td>
-          <td>{{ senior.idNumber }}</td>
-          <td>{{ new Date(senior.dateOfIssue).toLocaleDateString() }}</td>
-          <td>{{ new Date(senior.expirationDate).toLocaleDateString() }}</td>
-      </tr>
-  </tbody>
-</table>
-    </section>
-  </template>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" @click="downloadExcel">Download Senior Booklets</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" @click="downloadUsers">Download User List</button>
+      </div>
+    </div>
+    <hr />
+  </div>
+</template>
 
 <script>
 import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      previewData: [],
-    };
-  },
-  mounted() {
-    this.generatePreview();
-  },
   methods: {
-    async generatePreview() {
+    async downloadExcel() {
       try {
-        const response = await axios.get('office/excel-preview');
-        this.previewData = response.data;
+        const response = await axios.get('/office/export-excel', { responseType: 'blob' });
+        const url = URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'database.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
       } catch (error) {
-        console.error(error);
-        alert('An error occurred while generating the Excel preview.');
+        console.error('Failed to download the file:', error);
+      }
+    },
+    async downloadUsers() {
+      try {
+        const response = await axios.get('/office/export-users', { responseType: 'blob' });
+        const url = URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'elderlist_users.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Failed to download the file:', error);
       }
     },
   },

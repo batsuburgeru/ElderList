@@ -1,5 +1,2 @@
-"referenceId","seniorId","storeName","dateOfPurchase","totalPrice","discountAmount","purchasedItems"
-"sdf3safasd6s5","00000000084","Store 3","2023-05-18T16:01:41.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
-"sdf356s5","00000000084","Store 2","2023-05-18T15:52:09.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
-"asasdasg","00000000084","Store 1","2023-05-18T15:51:58.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
-"dsfsd","00000000084","Store 1","2023-05-18T15:51:53.000Z",134,1000,"[{""itemName"":""Paracetamol"",""quantity"":10,""pricePerUnit"":8},{""itemName"":""Hotdog"",""quantity"":1,""pricePerUnit"":54}]"
+"seniorId","accountId","firstName","lastName","middleName","contactNumber","dateOfBirth","address","idNumber","dateOfIssue","expirationDate","seniorUpload","email","password","role","status","dateOfCreation"
+"00000000089","00000000144","abcd","abcd","abcd1234@gmail.com",12312312312,"2023-04-30T16:00:00.000Z","abcd st 1234",351351216815,"2023-05-17T16:00:00.000Z","2023-05-13T16:00:00.000Z","1684697212262-bautista.png","abcd1234@gmail.com","$2b$10$JyH.9deeUlMjzHM1bJ0RBuxunXl48qhFt/1IvanZSim3wv8OUrAp.","seniorCitizen","confirmed","2023-05-21T16:00:00.000Z"

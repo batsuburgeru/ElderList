@@ -106,7 +106,7 @@
         <ul class="dropdown-menu dropdown-menu-light dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuAvatar">
           <li><span class="dropdown-item-text">Account</span></li>
           <li><a class="dropdown-item disabled" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">SignOut</a></li>
+          <li><a class="dropdown-item" href="#" @click="signOut">SignOut</a></li>
         </ul>
       </li>
     </ul>
@@ -267,24 +267,36 @@ export default {
           console.error(error);
           // Handle the error
         });
+    },
+    signOut() {
+      // Remove the token from the browser's storage
+      localStorage.removeItem('token');
+      
+      // Redirect the user to the sign-in page or any other desired page
+      window.location.href = '/';
     }
   },
 
   async mounted() {
-    try {
-      const response = await axios.get('http://localhost:5000/senior/bookletRender');
-      this.bookletDetails = response.data.bookletDetails.map((booklet) => {
-        return {
-          ...booklet,
-          purchasedItems: this.parsePurchasedItems(booklet.purchasedItems),
-        };
-      });
-      console.log(this.bookletDetails);
-      // Do something with the bookletDetails data here
-    } catch (error) {
-      console.error(error);
-    }
+  try {
+    const token = getCookieValue('token');
+    const decodedToken = jwt_decode(token);
+    const accountId = decodedToken.data.accountId;
+
+    const response = await axios.get(`http://localhost:5000/senior/bookletRender/${accountId}`);
+    this.bookletDetails = response.data.bookletDetails.map((booklet) => {
+      return {
+        ...booklet,
+        purchasedItems: this.parsePurchasedItems(booklet.purchasedItems),
+      };
+    });
+    console.log(this.bookletDetails);
+    // Do something with the bookletDetails data here
+  } catch (error) {
+    console.error(error);
   }
+
+}
 };
 </script>
 

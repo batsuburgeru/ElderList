@@ -27,21 +27,21 @@
       <div class="row-child">
         <div class="row-child-btn">
           <h4>Email</h4>
-          <button type="button" class="btn btn-primary email-btn">Edit</button>
+          <button type="button" class="btn btn-primary email-btn disabled">Edit</button>
         </div>
         <p> user@example.com</p>
       </div>
       <div class="row-child">
         <div class="row-child-btn">
           <h4>Telephone Number</h4>
-          <button type="button" class="btn btn-primary tel-btn">Edit</button>
+          <button type="button" class="btn btn-primary tel-btn disabled">Edit</button>
         </div>
         <p> 0XX-XXX-YYYY</p>
       </div>
     </div>
     <div class="password">
         <h4>Password</h4>
-        <button type="button" class="btn btn-primary">Change Password</button>
+        <button type="button" class="btn btn-primary disabled">Change Password</button>
       </div>
   </div>
 
@@ -50,7 +50,7 @@
     <h4>Theme</h4>
     <div class="theme-toggles">
       <div>
-        <button class="light-mode">
+        <button class="light-mode disabled">
           <div class="theme-label">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-brightness-high-fill" viewBox="0 -5 20 20">
             <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
@@ -63,7 +63,7 @@
         </button>
       </div>
       <div>
-        <button class="dark-mode">
+        <button class="dark-mode disabled">
           <div class="theme-label">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 -5 20 20">
   <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
@@ -84,7 +84,7 @@
         <p>Accesibility Mode: <span>Off</span></p>
         <p class="desc-p"><span>*Accessibility Mode increases font-size</span><span>and contrast to improve text readability</span><span>and promote easier usage.</span></p>
     </div>
-    <button type="button" class="btn btn-primary"><span>Turn On</span></button>
+    <button type="button" class="btn btn-primary disabled"><span>Turn On</span></button>
   </div>
 
   <div class="language pt-2">
@@ -93,7 +93,7 @@
         <p>Current Language: <span>English</span></p>
         <p class="desc-p">*Switch between English and Filipino</p>
     </div>
-    <button type="button" class="btn btn-primary">Switch to <span> Filipino</span></button>
+    <button type="button" class="btn btn-primary disabled">Switch to <span> Filipino</span></button>
   </div>
 
 </main>

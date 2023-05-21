@@ -119,8 +119,8 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
           <li><span class="dropdown-item-text">Profile </span></li>
-          <li><a class="dropdown-item" href="#">My Account</a></li>
-          <li><a class="dropdown-item" href="#">Sign Out</a></li>
+          <li><a class="dropdown-item disabled" href="#">My Account</a></li>
+          <li><a class="dropdown-item" href="#" @click="signOut">Sign Out</a></li>
         </ul>
       </li>
     </ul>
@@ -143,7 +143,7 @@
           <li><a class="dropdown-item disabled" href="#">Enable Dark Theme </a></li>
           <li><a class="dropdown-item disabled" href="#">Language: Switch to </a></li>
           <li><a class="dropdown-item disabled" href="#">Accesibility Mode: </a></li>
-          <div class="dropdown-divider"></div>
+          <div class="dropdown-divider disabled"></div>
           <li class="dropdown-item disabled" href="#">Send Feedback</li>
         </ul>
       </li>
@@ -180,6 +180,15 @@ export default {
       activeButton: 'seniorCitizenList',
     };
   },
+  methods: {
+    signOut() {
+      // Remove the token from the browser's storage
+      localStorage.removeItem('token');
+      
+      // Redirect the user to the sign-in page or any other desired page
+      window.location.href = '/';
+    }
+  }
 };
 </script>
 
