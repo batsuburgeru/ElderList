@@ -127,7 +127,7 @@
         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
           <li><span class="dropdown-item-text">Profile </span></li>
           <li><a class="dropdown-item disabled" href="#">My Account</a></li>
-          <li><a class="dropdown-item" href="#">Sign Out</a></li>
+          <li><a class="dropdown-item" href="#" @click="signOut">Sign Out</a></li>
         </ul>
       </li>
     </ul>
@@ -190,6 +190,15 @@ export default {
       activeButton: 'seniorCitizenList',
     };
   },
+  methods: {
+    signOut() {
+      // Remove the token from the browser's storage
+      localStorage.removeItem('token');
+      
+      // Redirect the user to the sign-in page or any other desired page
+      window.location.href = '/';
+    }
+  }
 };
 </script>
 
